@@ -1,0 +1,22 @@
+{
+	"name"       : "RFID",
+	"version"    : "0.0.1",
+	"description": "RFID",
+	"cordova"    : {
+		"id"       : "RFID",
+		"platforms": [
+			"android"
+		]
+	},
+	"keywords"   : [
+		"RFID"
+	],
+	"engines"    : [
+		{
+			"name"   : "cordova",
+			"version": ">=3.6.0"
+		}
+	],
+	"author"     : "Lars Noorlander",
+	"license"    : "MIT"
+}

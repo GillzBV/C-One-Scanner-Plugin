@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="RFID" version="0.0.1">
+	<name>RFID</name>
+	<description>RFID</description>
+	<license>MIT</license>
+	<keywords>RFID</keywords>
+	<js-module name="RFID" src="www/RFID.js">
+		<clobbers target="cordova.plugins.RFID"/>
+	</js-module>
+	<engines>
+		<engine name="cordova" version=">=3.6.0"></engine>
+	</engines>
+	<platform name="android">
+		<source-file src="src/android/nl/gillz/RFID.java" target-dir="src/nl/gillz/RFID"></source-file>
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="RFID">
+				<param name="android-package" value="nl.gillz.RFID"/>
+			</feature>
+		</config-file>
+	</platform>
+</plugin>
