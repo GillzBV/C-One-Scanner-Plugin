@@ -1,7 +1,6 @@
 package nl.gillz;
 
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -24,6 +23,6 @@ public class RFID extends CordovaPlugin {
 
 	private void scan(CallbackContext callbackContext) {
 		// callbackContext.error("Error");
-		callbackContext.success("Scanned");
+		callbackContext.success("ABC123ABC123AB");
 	}
 }
