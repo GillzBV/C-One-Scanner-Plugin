@@ -1,3 +1,3 @@
-window.scan = function (successCallback, errorCallback) {
+window.rfidscan = function (successCallback, errorCallback) {
 	cordova.exec(successCallback, errorCallback, 'RFID', 'scan', []);
 };
