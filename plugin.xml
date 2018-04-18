@@ -18,12 +18,12 @@
 			</feature>
 		</config-file>
 		<source-file src="src/android/nl/gillz/RFID.java" target-dir="src/nl/gillz/RFID"/>
-		<resource-file src="rfid/CpcAgrident-1.0.1-EB1.aar" target="../../libs/CpcAgrident-1.0.1-EB1.aar"/>
-		<resource-file src="rfid/CpcHdkCone-1.7.2.aar" target="../../libs/CpcHdkCone-1.7.2.aar"/>
+		<resource-file src="rfid/CpcAgrident-1.0.1-EB1.aar" target="libs/CpcAgrident-1.0.1-EB1.aar"/>
+		<resource-file src="rfid/CpcHdkCone-1.7.2.aar" target="libs/CpcHdkCone-1.7.2.aar"/>
 		<!--<resource-file src="rfid/CpcHdkIntrabet-1.1.3.aar" target="../../libs/CpcHdkIntrabet-1.1.3.aar"/>-->
 		<!--<resource-file src="rfid/CpcHdkVoterDevice-1.0.3.aar" target="../../libs/CpcHdkVoterDevice-1.0.3.aar"/>-->
-		<resource-file src="rfid/CpcPowerMgmt-3.0.0.aar" target="../../libs/CpcPowerMgmt-3.0.0.aar"/>
-		<resource-file src="rfid/CpcSerialCommunication-1.0.5.aar" target="../../libs/CpcSerialCommunication-1.0.5.aar"/>
-		<resource-file src="rfid/CpcUtilsLib-CpcAgrident-1.0.1-EB1.aar" target="../../libs/CpcUtilsLib-CpcAgrident-1.0.1-EB1.aar"/>
+		<resource-file src="rfid/CpcPowerMgmt-3.0.0.aar" target="libs/CpcPowerMgmt-3.0.0.aar"/>
+		<resource-file src="rfid/CpcSerialCommunication-1.0.5.aar" target="libs/CpcSerialCommunication-1.0.5.aar"/>
+		<resource-file src="rfid/CpcUtilsLib-CpcAgrident-1.0.1-EB1.aar" target="libs/CpcUtilsLib-CpcAgrident-1.0.1-EB1.aar"/>
 	</platform>
 </plugin>
