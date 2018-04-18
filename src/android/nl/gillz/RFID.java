@@ -80,7 +80,7 @@ public class RFID extends CordovaPlugin {
 		private WeakReference<Context> mWeakReference = null;
 
 		public RfidReaderHandler(Context c) {
-			mWeakReference = new WeakReference<>(c);
+			mWeakReference = new WeakReference<Context>(c);
 		}
 
 		@Override
