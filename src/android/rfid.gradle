@@ -6,16 +6,10 @@ repositories {
 }
 
 dependencies {
-	compile(name: 'CpcHdkCone-1.11.2', ext: 'aar')
-	compile(name: 'CpcPowerMgmt-3.6.3', ext: 'aar')
-	compile(name: 'CpcSerialCommunication-2.0.4', ext: 'aar')
-	compile 'com.android.support:multidex:1.0.2'
+	compile(name: 'CpcUtilsLib-6.16.0', ext: 'aar')
 }
 
 android {
-	defaultConfig {
-		multiDexEnabled true
-	}
 	packagingOptions {
 		exclude 'META-INF/NOTICE'
 		exclude 'META-INF/LICENSE'

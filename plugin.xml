@@ -18,8 +18,6 @@
 			</feature>
 		</config-file>
 		<source-file src="src/android/nl/gillz/RFID.java" target-dir="src/nl/gillz/RFID"/>
-		<resource-file src="libs/CpcHdkCone-1.11.2.aar" target="libs/CpcHdkCone-1.11.2.aar"/>
-		<resource-file src="libs/CpcPowerMgmt-3.6.3.aar" target="libs/CpcPowerMgmt-3.6.3.aar"/>
-		<resource-file src="libs/CpcSerialCommunication-2.0.4.aar" target="libs/CpcSerialCommunication-2.0.4.aar"/>
+		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
 	</platform>
 </plugin>
