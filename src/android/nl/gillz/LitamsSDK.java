@@ -11,7 +11,7 @@ import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-public class RFID extends CordovaPlugin {
+public class LitamsSDK extends CordovaPlugin {
 
 	private Context context;
 	private CallbackContext callbackContext;
@@ -66,7 +66,12 @@ public class RFID extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		this.callbackContext = callbackContext;
 		if (action.equals("scan")) {
-			this.scan();
+			String fakeResult = args.getString(0);
+			if (fakeResult.equals("")) {
+				this.scan();
+			} else {
+				callbackContext.success(fakeResult);
+			}
 			return true;
 		}
 		return false;

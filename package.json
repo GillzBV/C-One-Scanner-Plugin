@@ -1,15 +1,15 @@
 {
-	"name"       : "RFID",
+	"name"       : "LitamsSDK",
 	"version"    : "0.0.1",
-	"description": "RFID",
+	"description": "LitamsSDK",
 	"cordova"    : {
-		"id"       : "RFID",
+		"id"       : "LitamsSDK",
 		"platforms": [
 			"android"
 		]
 	},
 	"keywords"   : [
-		"RFID"
+		"LitamsSDK"
 	],
 	"engines"    : [
 		{

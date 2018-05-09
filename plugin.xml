@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="RFID" version="0.0.1">
-	<name>RFID</name>
-	<description>RFID</description>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="LitamsSDK" version="0.0.1">
+	<name>LitamsSDK</name>
+	<description>LitamsSDK</description>
 	<license>MIT</license>
-	<keywords>RFID</keywords>
-	<js-module name="RFID" src="www/RFID.js">
-		<clobbers target="cordova.plugins.RFID"/>
+	<keywords>LitamsSDK</keywords>
+	<js-module name="LitamsSDK" src="www/LitamsSDK.js">
+		<clobbers target="cordova.plugins.LitamsSDK"/>
 	</js-module>
 	<engines>
 		<engine name="cordova" version=">=3.6.0"/>
 	</engines>
 	<platform name="android">
-		<framework src="src/android/rfid.gradle" custom="true" type="gradleReference"/>
+		<framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
 		<config-file target="res/xml/config.xml" parent="/*">
-			<feature name="RFID">
-				<param name="android-package" value="nl.gillz.RFID"/>
+			<feature name="LitamsSDK">
+				<param name="android-package" value="nl.gillz.LitamsSDK"/>
 			</feature>
 		</config-file>
-		<source-file src="src/android/nl/gillz/RFID.java" target-dir="src/nl/gillz/RFID"/>
+		<source-file src="src/android/nl/gillz/LitamsSDK.java" target-dir="src/nl/gillz/LitamsSDK"/>
 		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
+		<resource-file src="libs/DeviceAPIver20160627.jar" target="libs/DeviceAPIver20160627.jar"/>
+		<resource-file src="libs/xUtils-2.5.5.jar" target="libs/xUtils-2.5.5.jar"/>
 	</platform>
 </plugin>
