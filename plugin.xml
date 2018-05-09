@@ -18,6 +18,10 @@
 			</feature>
 		</config-file>
 		<source-file src="src/android/nl/gillz/LitamsSDK.java" target-dir="src/nl/gillz/LitamsSDK"/>
+		<source-file src="src/android/nl/gillz/helpers/C4000.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/Scanner.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
 		<resource-file src="libs/DeviceAPIver20160627.jar" target="libs/DeviceAPIver20160627.jar"/>
 		<resource-file src="libs/xUtils-2.5.5.jar" target="libs/xUtils-2.5.5.jar"/>
