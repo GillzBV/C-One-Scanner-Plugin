@@ -39,6 +39,9 @@ public class RFID extends CordovaPlugin {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction() != null && intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_SUCCESS)) {
 				result = intent.getStringExtra(CpcDefinitions.KEY_BARCODE_DATA);
+				isScanning = false;
+				countDownTimer.cancel();
+				callbackContext.success(result);
 			} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
 				callbackContext.error("Scanner error occurred");
 			} else {
