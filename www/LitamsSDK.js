@@ -9,15 +9,25 @@ function litamsSDK() {
 		);
 	};
 
-	this.scan = function (successCallback, errorCallback, fakeResult) {
-		if (fakeResult == null)
-			fakeResult = '';
+	this.scan = function (successCallback, errorCallback, multiScan) {
+		if (multiScan == null)
+			multiScan = false;
 		cordova.exec(
 			successCallback,
 			errorCallback,
 			'LitamsSDK',
 			'scan',
-			[fakeResult]
+			[multiScan]
+		);
+	};
+
+	this.stopScan = function (successCallback) {
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'stopScan',
+			[]
 		);
 	};
 }

@@ -57,7 +57,8 @@ public class COne {
 					countDownTimer.cancel();
 					scanner.success(result);
 				} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
-					scanner.error("Scanner error occurred");
+					if (isScanning)
+						scanner.error("Scanner error occurred");
 				} else {
 					scanner.error("Unknown error occurred");
 				}
