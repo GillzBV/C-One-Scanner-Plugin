@@ -1,10 +1,7 @@
 package nl.gillz;
 
 import android.content.Context;
-import nl.gillz.helpers.C4000;
-import nl.gillz.helpers.COne;
-import nl.gillz.helpers.Device;
-import nl.gillz.helpers.Scanner;
+import nl.gillz.helpers.*;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +11,8 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 	private Context context;
 	private CallbackContext callbackContext;
 	private String deviceName;
+	private Sound sound;
+	private Vibration vibration;
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -22,6 +21,10 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		context = this.cordova.getActivity().getApplicationContext();
 
 		deviceName = Device.getInstance().getDeviceName();
+
+		sound = new Sound(context);
+
+		vibration = new Vibration(context);
 	}
 
 	@Override
@@ -53,11 +56,15 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	@Override
 	public void success(String result) {
+		sound.play(ScanStatus.SUCCESS);
+		vibration.vibrate(ScanStatus.SUCCESS);
 		callbackContext.success(result);
 	}
 
 	@Override
 	public void error(String result) {
+		sound.play(ScanStatus.ERROR);
+		vibration.vibrate(ScanStatus.ERROR);
 		callbackContext.error(result);
 	}
 }

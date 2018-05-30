@@ -8,7 +8,6 @@ import java.util.List;
 public class Device {
 
 	private static Device device;
-
 	private List<String> devices = new ArrayList<String>();
 
 	private Device() {

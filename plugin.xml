@@ -12,6 +12,9 @@
 	</engines>
 	<platform name="android">
 		<framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.VIBRATE"/>
+		</config-file>
 		<config-file target="res/xml/config.xml" parent="/*">
 			<feature name="LitamsSDK">
 				<param name="android-package" value="nl.gillz.LitamsSDK"/>
@@ -22,9 +25,11 @@
 		<source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Scanner.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
 		<resource-file src="libs/cw-deviceapi20180323.jar" target="libs/cw-deviceapi20180323.jar"/>
-		<resource-file src="libs/xUtils-2.5.5.jar" target="libs/xUtils-2.5.5.jar"/>
 		<resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
 		<resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
 		<resource-file src="libs/armeabi/libbarcodereader44.so" target="libs/armeabi/libbarcodereader44.so"/>
@@ -56,5 +61,8 @@
 		<resource-file src="libs/arm64-v8a/libIGLBarDecoder.so" target="libs/arm64-v8a/libIGLBarDecoder.so"/>
 		<resource-file src="libs/arm64-v8a/libIGLImageAE.so" target="libs/arm64-v8a/libIGLImageAE.so"/>
 		<resource-file src="libs/arm64-v8a/libSDL.so" target="libs/arm64-v8a/libSDL.so"/>
+		<resource-file src="res/raw/success.wav" target="res/raw/success.wav"/>
+		<resource-file src="res/raw/fail.wav" target="res/raw/fail.wav"/>
+		<resource-file src="res/raw/error.wav" target="res/raw/error.wav"/>
 	</platform>
 </plugin>

@@ -8,7 +8,6 @@ repositories {
 dependencies {
 	compile(name: 'CpcUtilsLib-6.16.0', ext: 'aar')
 	compile(name: 'cw-deviceapi20180323', ext: 'jar')
-	compile(name: 'xUtils-2.5.5', ext: 'jar')
 	compile 'com.jaredrummler:android-device-names:1.1.7'
 }
 
