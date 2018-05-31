@@ -2,7 +2,6 @@ package nl.gillz.helpers;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-import nl.gillz.demoApp.R;
 
 public class Sound {
 
@@ -32,8 +31,8 @@ public class Sound {
 	}
 
 	private void setupMediaPlayers() {
-		success = MediaPlayer.create(context, R.raw.success);
-		fail = MediaPlayer.create(context, R.raw.fail);
-		error = MediaPlayer.create(context, R.raw.error);
+		success = MediaPlayer.create(context, context.getResources().getIdentifier("success", "raw", context.getPackageName()));
+		fail = MediaPlayer.create(context, context.getResources().getIdentifier("fail", "raw", context.getPackageName()));
+		error = MediaPlayer.create(context, context.getResources().getIdentifier("error", "raw", context.getPackageName()));
 	}
 }
