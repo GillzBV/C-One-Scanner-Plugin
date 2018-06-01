@@ -65,7 +65,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 	}
 
 	private void setupCountDownTimer() {
-		countdownTimer = new CountDownTimer(10000, 500) {
+		countdownTimer = new CountDownTimer(1000, 500) {
 
 			public void onTick(long millisUntilFinished) {
 			}
@@ -132,9 +132,9 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		vibration.vibrate(ScanStatus.ERROR);
 
 		if (multiScan) {
-			pluginResult = new PluginResult(PluginResult.Status.ERROR, result);
-			pluginResult.setKeepCallback(true);
-			callbackContext.sendPluginResult(pluginResult);
+//			pluginResult = new PluginResult(PluginResult.Status.ERROR, result);
+//			pluginResult.setKeepCallback(true);
+//			callbackContext.sendPluginResult(pluginResult);
 
 			countdownTimer.start();
 		} else {
