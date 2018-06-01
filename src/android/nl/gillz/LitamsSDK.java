@@ -141,4 +141,12 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			callbackContext.error(result);
 		}
 	}
+
+	@Override
+	public void stop() {
+		countdownTimer.cancel();
+		this.multiScan = false;
+		results.clear();
+		callbackContext.success("Scan stopped");
+	}
 }
