@@ -65,7 +65,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 	}
 
 	private void setupCountDownTimer() {
-		countdownTimer = new CountDownTimer(1000, 500) {
+		countdownTimer = new CountDownTimer(10000, 500) {
 
 			public void onTick(long millisUntilFinished) {
 			}
