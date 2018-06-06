@@ -31,7 +31,7 @@ public class Bluetooth {
 	}
 
 	private void setupBluetooth() {
-		bluetooth = new me.aflak.bluetooth.Bluetooth(context, UUID.fromString("0000111f-0000-1000-8000-00805f9b34fb"));
+		bluetooth = new me.aflak.bluetooth.Bluetooth(context, UUID.fromString("0000111E-0000-1000-8000-00805F9B34FB"));
 
 		bluetooth.onStart();
 
@@ -82,56 +82,21 @@ public class Bluetooth {
 			@Override
 			public void onDeviceFound(BluetoothDevice device) {
 				Log.v("test", "onDeviceFound " + device);
-				final BluetoothDevice finalDevice = device;
-				if (device.getAddress().equals("FC:A8:9A:7E:98:88")) {
-					new CountDownTimer(2000, 500) {
-
-						public void onTick(long millisUntilFinished) {
-						}
-
-						public void onFinish() {
-							bluetooth.pair(finalDevice);
-						}
-					}.start();
+				if (device.getAddress().equals("B8:27:EB:6C:34:CA")) {
+					bluetooth.pair(device);
 				}
 			}
 
 			@Override
 			public void onDevicePaired(BluetoothDevice device) {
-				final BluetoothDevice finalDevice = device;
 				Log.v("test", "onDevicePaired " + device);
-				new CountDownTimer(2000, 500) {
-
-					public void onTick(long millisUntilFinished) {
-					}
-
-					public void onFinish() {
-						bluetooth.disable();
-						new CountDownTimer(2000, 500) {
-
-							public void onTick(long millisUntilFinished) {
-							}
-
-							public void onFinish() {
-								bluetooth.enable();
-								new CountDownTimer(2000, 500) {
-
-									public void onTick(long millisUntilFinished) {
-									}
-
-									public void onFinish() {
-										bluetooth.connectToDevice(finalDevice);
-									}
-								}.start();
-							}
-						}.start();
-					}
-				}.start();
+				bluetooth.connectToDevice(device);
 			}
 
 			@Override
 			public void onDeviceUnpaired(BluetoothDevice device) {
 				Log.v("test", "onDeviceUnpaired " + device);
+				bluetooth.pair(device);
 			}
 
 			@Override
@@ -150,7 +115,8 @@ public class Bluetooth {
 
 			@Override
 			public void onDeviceDisconnected(BluetoothDevice device, String message) {
-				Log.v("test", "onDeviceDisconnected " + message + " " + message);
+				Log.v("test", "onDeviceDisconnected " + device + " " + message);
+				bluetooth.connectToDevice(device);
 			}
 
 			@Override
@@ -166,6 +132,7 @@ public class Bluetooth {
 			@Override
 			public void onConnectError(BluetoothDevice device, String message) {
 				Log.v("test", "onConnectError " + device + " " + message);
+				bluetooth.connectToDevice(device);
 			}
 		});
 	}
