@@ -7,12 +7,12 @@ import com.rscja.deviceapi.exception.ConfigurationException;
 
 public class C4000 {
 
-	private final Scanner scanner;
+	private final ScannerCallback scannerCallback;
 	private final Context context;
 	private RFIDWithLF rfidWithLF;
 
-	public C4000(Scanner scanner, Context context) {
-		this.scanner = scanner;
+	public C4000(ScannerCallback scannerCallback, Context context) {
+		this.scannerCallback = scannerCallback;
 		this.context = context;
 
 		setupRfidWithLF();
@@ -22,9 +22,9 @@ public class C4000 {
 		AnimalEntity animalEntity = rfidWithLF.readAnimalTags(1);
 
 		if (animalEntity != null) {
-			scanner.success(String.valueOf(animalEntity.getNationalID()));
+			scannerCallback.success(String.valueOf(animalEntity.getNationalID()));
 		} else {
-			scanner.error("Scanner error occurred");
+			scannerCallback.error("Scanner error occurred");
 		}
 
 		rfidWithLF.free();
@@ -35,7 +35,7 @@ public class C4000 {
 			rfidWithLF = RFIDWithLF.getInstance();
 			rfidWithLF.init();
 		} catch (ConfigurationException configurationException) {
-			scanner.error("Scanner error occurred");
+			scannerCallback.error("Scanner error occurred");
 		}
 	}
 }

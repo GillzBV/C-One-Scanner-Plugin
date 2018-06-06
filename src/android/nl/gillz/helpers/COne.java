@@ -11,7 +11,7 @@ import fr.coppernic.sdk.utils.core.CpcDefinitions;
 
 public class COne {
 
-	private final Scanner scanner;
+	private final ScannerCallback scannerCallback;
 	private final Context context;
 	private static final String AGRIDENT_WEDGE = "fr.coppernic.tools.cpcagridentwedge";
 	private String result = "";
@@ -19,8 +19,8 @@ public class COne {
 	private CountDownTimer countDownTimer;
 	private BroadcastReceiver broadcastReceiver;
 
-	public COne(Scanner scanner, Context context) {
-		this.scanner = scanner;
+	public COne(ScannerCallback scannerCallback, Context context) {
+		this.scannerCallback = scannerCallback;
 		this.context = context;
 
 		setupBroadcastReceiver();
@@ -30,7 +30,7 @@ public class COne {
 	public void scan() {
 		if (!isScanning) {
 			if (!isAppInstalled(context, AGRIDENT_WEDGE)) {
-				scanner.error(AGRIDENT_WEDGE + " is not installed on the device");
+				scannerCallback.error(AGRIDENT_WEDGE + " is not installed on the device");
 				return;
 			}
 
@@ -41,7 +41,7 @@ public class COne {
 				context.startActivity(launchIntent);
 				countDownTimer.start();
 			} else {
-				scanner.error("Unknown error occurred");
+				scannerCallback.error("Unknown error occurred");
 			}
 		}
 	}
@@ -55,14 +55,14 @@ public class COne {
 					result = intent.getStringExtra(CpcDefinitions.KEY_BARCODE_DATA);
 					isScanning = false;
 					countDownTimer.cancel();
-					scanner.success(result);
+					scannerCallback.success(result);
 				} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
 					if (isScanning)
-						scanner.error("Scanner error occurred");
-                } else if (intent.getAction().equals(CpcDefinitions.INTENT_ACTION_STOP_SCAN)) {
-					scanner.stop();
+						scannerCallback.error("Scanner error occurred");
+				} else if (intent.getAction().equals(CpcDefinitions.INTENT_ACTION_STOP_SCAN)) {
+					scannerCallback.stop();
 				} else {
-					scanner.error("Unknown error occurred");
+					scannerCallback.error("Unknown error occurred");
 				}
 			}
 		};
@@ -70,8 +70,8 @@ public class COne {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_SUCCESS);
 		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_ERROR);
-        intentFilter.addAction(CpcDefinitions.INTENT_ACTION_STOP_SCAN);
-        context.registerReceiver(broadcastReceiver, intentFilter);
+		intentFilter.addAction(CpcDefinitions.INTENT_ACTION_STOP_SCAN);
+		context.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
 	private void setupCountDownTimer() {
@@ -83,9 +83,9 @@ public class COne {
 			public void onFinish() {
 				isScanning = false;
 				if (!result.equals("")) {
-					scanner.success(result);
+					scannerCallback.success(result);
 				} else {
-					scanner.error("No RFID tag found");
+					scannerCallback.error("No RFID tag found");
 				}
 			}
 		};

@@ -10,7 +10,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LitamsSDK extends CordovaPlugin implements Scanner {
+public class LitamsSDK extends CordovaPlugin implements ScannerCallback, BluetoothCallback {
 
 	private Context context;
 	private CallbackContext callbackContext;
@@ -24,6 +24,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	private C4000 c4000 = null;
 	private COne cOne = null;
+	private Bluetooth bluetooth = null;
 
 	private Boolean multiScan = false;
 	private List<String> results = new ArrayList<String>();
@@ -51,12 +52,14 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			countdownTimer.cancel();
 			this.multiScan = args.getBoolean(0);
 			results.clear();
-			this.scan();
+			scan();
 		} else if (action.equals("stopScan")) {
 			countdownTimer.cancel();
 			this.multiScan = false;
 			results.clear();
 			callbackContext.success("Scan stopped");
+		} else if (action.equals("startBluetooth")) {
+			startBluetooth();
 		} else {
 			return false;
 		}
@@ -100,6 +103,11 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			cOne.scan();
 	}
 
+	private void startBluetooth() {
+		if (bluetooth == null)
+			bluetooth = new Bluetooth(this, context);
+	}
+
 	@Override
 	public void success(String result) {
 		if (multiScan && !results.contains(result)) {
@@ -132,10 +140,6 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		vibration.vibrate(ScanStatus.ERROR);
 
 		if (multiScan) {
-//			pluginResult = new PluginResult(PluginResult.Status.ERROR, result);
-//			pluginResult.setKeepCallback(true);
-//			callbackContext.sendPluginResult(pluginResult);
-
 			countdownTimer.start();
 		} else {
 			callbackContext.error(result);
@@ -148,5 +152,10 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		this.multiScan = false;
 		results.clear();
 		callbackContext.success("Scan stopped");
+	}
+
+	@Override
+	public void message(String message) {
+
 	}
 }
