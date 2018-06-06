@@ -59,8 +59,6 @@ public class COne {
 				} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
 					if (isScanning)
 						scanner.error("Scanner error occurred");
-                } else if (intent.getAction().equals(CpcDefinitions.INTENT_ACTION_STOP_SCAN)) {
-					scanner.stop();
 				} else {
 					scanner.error("Unknown error occurred");
 				}
@@ -70,12 +68,11 @@ public class COne {
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_SUCCESS);
 		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_ERROR);
-        intentFilter.addAction(CpcDefinitions.INTENT_ACTION_STOP_SCAN);
-        context.registerReceiver(broadcastReceiver, intentFilter);
+		context.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
 	private void setupCountDownTimer() {
-		countDownTimer = new CountDownTimer(10000, 1000) {
+		countDownTimer = new CountDownTimer(8000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 			}

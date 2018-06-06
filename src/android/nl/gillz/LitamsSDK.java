@@ -27,6 +27,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	private Boolean multiScan = false;
 	private List<String> results = new ArrayList<String>();
+	private Integer error = 0;
 
 	@Override
 	public void initialize(CordovaInterface cordovaInterface, CordovaWebView cordovaWebView) {
@@ -53,10 +54,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			results.clear();
 			this.scan();
 		} else if (action.equals("stopScan")) {
-			countdownTimer.cancel();
-			this.multiScan = false;
-			results.clear();
-			callbackContext.success("Scan stopped");
+			stop();
 		} else {
 			return false;
 		}
@@ -114,6 +112,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		}
 
 		if (multiScan) {
+			error = 0;
 			results.add(result);
 
 			pluginResult = new PluginResult(PluginResult.Status.OK, result);
@@ -128,22 +127,22 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	@Override
 	public void error(String result) {
-		sound.play(ScanStatus.ERROR);
-		vibration.vibrate(ScanStatus.ERROR);
-
-		if (multiScan) {
-//			pluginResult = new PluginResult(PluginResult.Status.ERROR, result);
-//			pluginResult.setKeepCallback(true);
-//			callbackContext.sendPluginResult(pluginResult);
-
-			countdownTimer.start();
+		if (error > 5) {
+			stop();
 		} else {
-			callbackContext.error(result);
+			sound.play(ScanStatus.ERROR);
+			vibration.vibrate(ScanStatus.ERROR);
+
+			if (multiScan) {
+				error++;
+				countdownTimer.start();
+			} else {
+				callbackContext.error(result);
+			}
 		}
 	}
 
-	@Override
-	public void stop() {
+	private void stop() {
 		countdownTimer.cancel();
 		this.multiScan = false;
 		results.clear();
