@@ -25,6 +25,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 	private C4000 c4000 = null;
 	private COne cOne = null;
 
+	private Boolean isScanning = false;
 	private Boolean multiScan = false;
 	private List<String> results = new ArrayList<String>();
 	private Integer error = 0;
@@ -76,6 +77,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	private void scan() {
 		error = 0;
+		isScanning = true;
 		if (multiScan) {
 			pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
 			pluginResult.setKeepCallback(true);
@@ -122,28 +124,32 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 			countdownTimer.start();
 		} else {
+			isScanning = false;
 			callbackContext.success(result);
 		}
 	}
 
 	@Override
 	public void error(String result) {
-		error++;
-		if (error > 5) {
-			stop();
-		} else {
-			sound.play(ScanStatus.ERROR);
-			vibration.vibrate(ScanStatus.ERROR);
-
-			if (multiScan) {
-				countdownTimer.start();
+		if (isScanning) {
+			error++;
+			if (error > 5) {
+				stop();
 			} else {
-				callbackContext.error(result);
+				sound.play(ScanStatus.ERROR);
+				vibration.vibrate(ScanStatus.ERROR);
+
+				if (multiScan) {
+					countdownTimer.start();
+				} else {
+					callbackContext.error(result);
+				}
 			}
 		}
 	}
 
 	private void stop() {
+		isScanning = false;
 		countdownTimer.cancel();
 		this.multiScan = false;
 		results.clear();
