@@ -75,6 +75,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 	}
 
 	private void scan() {
+		error = 0;
 		if (multiScan) {
 			pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
 			pluginResult.setKeepCallback(true);
@@ -100,6 +101,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	@Override
 	public void success(String result) {
+		error = 0;
 		if (multiScan && !results.contains(result)) {
 			sound.play(ScanStatus.SUCCESS);
 			vibration.vibrate(ScanStatus.SUCCESS);
@@ -112,7 +114,6 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		}
 
 		if (multiScan) {
-			error = 0;
 			results.add(result);
 
 			pluginResult = new PluginResult(PluginResult.Status.OK, result);
@@ -127,6 +128,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	@Override
 	public void error(String result) {
+		error++;
 		if (error > 5) {
 			stop();
 		} else {
@@ -134,7 +136,6 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			vibration.vibrate(ScanStatus.ERROR);
 
 			if (multiScan) {
-				error++;
 				countdownTimer.start();
 			} else {
 				callbackContext.error(result);

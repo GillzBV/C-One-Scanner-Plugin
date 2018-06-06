@@ -72,7 +72,7 @@ public class COne {
 	}
 
 	private void setupCountDownTimer() {
-		countDownTimer = new CountDownTimer(8000, 1000) {
+		countDownTimer = new CountDownTimer(10000, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 			}
