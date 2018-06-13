@@ -58,7 +58,7 @@ public class COne {
 					scannerCallback.success(result);
 				} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
 					if (isScanning)
-						scanner.error("Scanner error occurred");
+						scannerCallback.error("Scanner error occurred");
 				} else {
 					scannerCallback.error("Unknown error occurred");
 				}
