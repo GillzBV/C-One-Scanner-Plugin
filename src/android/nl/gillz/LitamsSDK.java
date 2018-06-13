@@ -176,10 +176,11 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 			} else {
 				sound.play(ScanStatus.ERROR);
 				vibration.vibrate(ScanStatus.ERROR);
-		if (multiScan) {
-			countdownTimer.start();
-		} else {
-			callbackContext.error(result);}
+				if (multiScan) {
+					countdownTimer.start();
+				} else {
+					callbackContext.error(result);
+				}
 			}
 		}
 	}
