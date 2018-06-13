@@ -19,3 +19,19 @@ Stop a RFID multiscan
 
 **Parameters**
 - Function (will be used to return a string)
+### startBluetooth
+Start a Bluetooth connection
+
+**Parameters**
+- Function (will be used to return a string, depending if sendBluetoothMessage was used after this function, messages send from the bluetooth device will switch over to the function of sendBluetoothMessage)
+### sendBluetoothMessage
+Send a Bluetooth message
+
+**Parameters**
+- Function (will be used to return a string, can replace the function of startBluetooth)
+- String (message to send to the receiving device)
+### stopBluetooth
+Stop the Bluetooth connection
+
+**Parameters**
+- Function (will be used to return a string)

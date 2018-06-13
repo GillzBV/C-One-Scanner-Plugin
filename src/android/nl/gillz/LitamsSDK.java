@@ -60,6 +60,10 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 			callbackContext.success("Scan stopped");
 		} else if (action.equals("startBluetooth")) {
 			startBluetooth();
+		} else if (action.equals("sendBluetoothMessage")) {
+			sendBluetoothMessage(args.getString(0));
+		} else if (action.equals("stopBluetooth")) {
+			stopBluetooth();
 		} else {
 			return false;
 		}
@@ -104,8 +108,34 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	}
 
 	private void startBluetooth() {
-		if (bluetooth == null)
+		pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+
+		if (bluetooth == null) {
 			bluetooth = new Bluetooth(this, context);
+		}
+
+		bluetooth.setupConnection();
+	}
+
+	private void sendBluetoothMessage(String message) {
+		pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+
+		if (bluetooth == null) {
+			bluetooth = new Bluetooth(this, context);
+		}
+
+		bluetooth.sendBluetoothMessage(message);
+	}
+
+	private void stopBluetooth() {
+		if (bluetooth != null) {
+			bluetooth.stopConnection();
+			bluetooth = null;
+		}
 	}
 
 	@Override
@@ -156,6 +186,15 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 	@Override
 	public void message(String message) {
+		pluginResult = new PluginResult(PluginResult.Status.OK, message);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+	}
 
+	@Override
+	public void failure(String failure) {
+		pluginResult = new PluginResult(PluginResult.Status.ERROR, failure);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
 	}
 }

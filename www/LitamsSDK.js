@@ -31,30 +31,31 @@ function litamsSDK() {
 		);
 	};
 
-	this.startBluetooth = function (successCallback, errorCallback) {
+	this.startBluetooth = function (successCallback) {
 		cordova.exec(
 			successCallback,
-			errorCallback,
+			null,
 			'LitamsSDK',
 			'startBluetooth',
 			[]
 		);
 	};
 
-	this.sendBluetoothMessage = function (successCallback, errorCallback) {
-		cordova.exec(
-			successCallback,
-			errorCallback,
-			'LitamsSDK',
-			'sendBluetoothMessage',
-			[]
-		);
+	this.sendBluetoothMessage = function (successCallback, message) {
+		if (message != null)
+			cordova.exec(
+				successCallback,
+				null,
+				'LitamsSDK',
+				'sendBluetoothMessage',
+				[message]
+			);
 	};
 
-	this.stopBluetooth = function (successCallback, errorCallback) {
+	this.stopBluetooth = function (successCallback) {
 		cordova.exec(
 			successCallback,
-			errorCallback,
+			null,
 			'LitamsSDK',
 			'stopBluetooth',
 			[]

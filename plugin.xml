@@ -34,7 +34,7 @@
 		<source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
+		<resource-file src="libs/CpcUtilsLib-6.17.0.aar" target="libs/CpcUtilsLib-6.17.0.aar"/>
 		<resource-file src="libs/cw-deviceapi20180323.jar" target="libs/cw-deviceapi20180323.jar"/>
 		<resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
 		<resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
