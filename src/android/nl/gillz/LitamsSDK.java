@@ -10,7 +10,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LitamsSDK extends CordovaPlugin implements Scanner {
+public class LitamsSDK extends CordovaPlugin implements ScannerCallback, BluetoothCallback {
 
 	private Context context;
 	private CallbackContext callbackContext;
@@ -24,6 +24,7 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 
 	private C4000 c4000 = null;
 	private COne cOne = null;
+	private Bluetooth bluetooth = null;
 
 	private Boolean isScanning = false;
 	private Boolean multiScan = false;
@@ -53,9 +54,15 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			countdownTimer.cancel();
 			this.multiScan = args.getBoolean(0);
 			results.clear();
-			this.scan();
+			scan();
 		} else if (action.equals("stopScan")) {
 			stop();
+		} else if (action.equals("startBluetooth")) {
+			startBluetooth();
+		} else if (action.equals("sendBluetoothMessage")) {
+			sendBluetoothMessage(args.getString(0));
+		} else if (action.equals("stopBluetooth")) {
+			stopBluetooth();
 		} else {
 			return false;
 		}
@@ -101,6 +108,37 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			cOne.scan();
 	}
 
+	private void startBluetooth() {
+		pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+
+		if (bluetooth == null) {
+			bluetooth = new Bluetooth(this, context);
+		}
+
+		bluetooth.setupConnection();
+	}
+
+	private void sendBluetoothMessage(String message) {
+		pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+
+		if (bluetooth == null) {
+			bluetooth = new Bluetooth(this, context);
+		}
+
+		bluetooth.sendBluetoothMessage(message);
+	}
+
+	private void stopBluetooth() {
+		if (bluetooth != null) {
+			bluetooth.stopConnection();
+			bluetooth = null;
+		}
+	}
+
 	@Override
 	public void success(String result) {
 		error = 0;
@@ -138,12 +176,10 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 			} else {
 				sound.play(ScanStatus.ERROR);
 				vibration.vibrate(ScanStatus.ERROR);
-
-				if (multiScan) {
-					countdownTimer.start();
-				} else {
-					callbackContext.error(result);
-				}
+		if (multiScan) {
+			countdownTimer.start();
+		} else {
+			callbackContext.error(result);}
 			}
 		}
 	}
@@ -154,5 +190,19 @@ public class LitamsSDK extends CordovaPlugin implements Scanner {
 		this.multiScan = false;
 		results.clear();
 		callbackContext.success("Scan stopped");
+	}
+
+	@Override
+	public void message(String message) {
+		pluginResult = new PluginResult(PluginResult.Status.OK, message);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
+	}
+
+	@Override
+	public void failure(String failure) {
+		pluginResult = new PluginResult(PluginResult.Status.ERROR, failure);
+		pluginResult.setKeepCallback(true);
+		callbackContext.sendPluginResult(pluginResult);
 	}
 }

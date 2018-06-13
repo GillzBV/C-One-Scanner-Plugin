@@ -30,6 +30,37 @@ function litamsSDK() {
 			[]
 		);
 	};
+
+	this.startBluetooth = function (successCallback) {
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'startBluetooth',
+			[]
+		);
+	};
+
+	this.sendBluetoothMessage = function (successCallback, message) {
+		if (message != null)
+			cordova.exec(
+				successCallback,
+				null,
+				'LitamsSDK',
+				'sendBluetoothMessage',
+				[message]
+			);
+	};
+
+	this.stopBluetooth = function (successCallback) {
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'stopBluetooth',
+			[]
+		);
+	};
 }
 
 window.litamsSDK = new litamsSDK();

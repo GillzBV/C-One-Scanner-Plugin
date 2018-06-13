@@ -1,6 +1,6 @@
 package nl.gillz.helpers;
 
-public interface Scanner {
+public interface ScannerCallback {
 	public void success(String result);
 
 	public void error(String result);

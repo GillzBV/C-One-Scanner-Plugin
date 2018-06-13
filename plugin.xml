@@ -13,6 +13,10 @@
 	<platform name="android">
 		<framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
 		<config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+			<uses-permission android:name="android.permission.BLUETOOTH"/>
+			<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 			<uses-permission android:name="android.permission.VIBRATE"/>
 		</config-file>
 		<config-file target="res/xml/config.xml" parent="/*">
@@ -21,14 +25,16 @@
 			</feature>
 		</config-file>
 		<source-file src="src/android/nl/gillz/LitamsSDK.java" target-dir="src/nl/gillz/LitamsSDK"/>
+		<source-file src="src/android/nl/gillz/helpers/Bluetooth.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/BluetoothCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/C4000.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/Scanner.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+		<source-file src="src/android/nl/gillz/helpers/ScannerCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<resource-file src="libs/CpcUtilsLib-6.16.0.aar" target="libs/CpcUtilsLib-6.16.0.aar"/>
+		<resource-file src="libs/CpcUtilsLib-6.17.0.aar" target="libs/CpcUtilsLib-6.17.0.aar"/>
 		<resource-file src="libs/cw-deviceapi20180323.jar" target="libs/cw-deviceapi20180323.jar"/>
 		<resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
 		<resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
