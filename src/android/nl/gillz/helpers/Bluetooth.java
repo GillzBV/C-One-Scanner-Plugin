@@ -79,7 +79,7 @@ public class Bluetooth {
 
 				List<BluetoothDevice> devices = bluetooth.getPairedDevices();
 
-				for (BluetoothDevice bluetoothDevice : devices) {
+				for (BluetoothDevice bluetoothDevice: devices) {
 					if (isKnownDevice(bluetoothDevice)) {
 						connectedBluetoothDevice = bluetoothDevice;
 					}
@@ -191,7 +191,7 @@ public class Bluetooth {
 			return false;
 		}
 
-		for (String knownDeviceName : knownDeviceNames) {
+		for (String knownDeviceName: knownDeviceNames) {
 			if (bluetoothDevice.getName().equals(knownDeviceName))
 				return true;
 		}
