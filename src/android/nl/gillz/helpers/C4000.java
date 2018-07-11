@@ -8,6 +8,7 @@ public class C4000 {
 
 	private final ScannerCallback scannerCallback;
 	private final Context context;
+
 	private RFIDWithLF rfidWithLF;
 
 	public C4000(ScannerCallback scannerCallback, Context context) {
@@ -23,7 +24,7 @@ public class C4000 {
 		if (result != null && !result.equals("") && !result.equals("-1")) {
 			scannerCallback.success(result);
 		} else {
-			scannerCallback.error("Scanner error occurred");
+			scannerCallback.error("Scan expired");
 		}
 	}
 

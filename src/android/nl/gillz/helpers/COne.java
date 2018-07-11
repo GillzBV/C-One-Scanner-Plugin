@@ -1,6 +1,7 @@
 package nl.gillz.helpers;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 import fr.coppernic.sdk.agrident.*;
 import fr.coppernic.sdk.power.PowerManager;
 import fr.coppernic.sdk.power.api.PowerListener;
@@ -19,14 +20,20 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 	private final ScannerCallback scannerCallback;
 	private final Context context;
 
+	private CountDownTimer countdownTimer;
+
 	private Reader reader;
 
 	public COne(ScannerCallback scannerCallback, Context context) {
 		this.scannerCallback = scannerCallback;
 		this.context = context;
+
+		setupCountDownTimer();
 	}
 
 	public void scan() {
+		countdownTimer.start();
+
 		PowerManager.get().registerListener(this);
 		ConePeripheral.RFID_AGRIDENT_ABR200_GPIO.on(context);
 	}
@@ -39,6 +46,21 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 	@Override
 	public void onPowerDown(CpcResult.RESULT result, Peripheral peripheral) {
 
+	}
+
+	private void setupCountDownTimer() {
+		countdownTimer = new CountDownTimer(10000, 1000) {
+
+			public void onTick(long millisUntilFinished) {
+			}
+
+			public void onFinish() {
+				scannerCallback.error("Scan expired");
+
+				reader.sendCommand(Commands.SET_RF_OFF_CMD);
+				reader.close();
+			}
+		};
 	}
 
 	@Override
@@ -73,6 +95,8 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 			} else {
 				scannerCallback.error("Could not read tag data");
 			}
+
+			countdownTimer.cancel();
 
 			reader.sendCommand(Commands.SET_RF_OFF_CMD);
 			reader.close();
