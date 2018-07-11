@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-	compile(name: 'cw-deviceapi20180323', ext: 'jar')
+	compile(name: 'cw-deviceapi20180628', ext: 'jar')
 	compile 'fr.coppernic.sdk.agrident:CpcAgrident:2.0.1'
 	compile 'fr.coppernic.sdk.core:CpcCore:1.6.2'
 	compile 'com.jaredrummler:android-device-names:1.1.7'
