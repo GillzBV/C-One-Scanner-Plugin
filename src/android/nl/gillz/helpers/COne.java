@@ -1,99 +1,101 @@
 package nl.gillz.helpers;
 
-
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.CountDownTimer;
-import fr.coppernic.sdk.utils.core.CpcDefinitions;
+import fr.coppernic.sdk.agrident.*;
+import fr.coppernic.sdk.power.PowerManager;
+import fr.coppernic.sdk.power.api.PowerListener;
+import fr.coppernic.sdk.power.api.peripheral.Peripheral;
+import fr.coppernic.sdk.power.impl.cone.ConePeripheral;
+import fr.coppernic.sdk.utils.core.CpcBytes;
+import fr.coppernic.sdk.utils.core.CpcResult;
+import fr.coppernic.sdk.utils.io.InstanceListener;
 
-public class COne {
+import java.util.Arrays;
+
+import static fr.coppernic.sdk.agrident.MessageType.RFID_READ_SUCCESS;
+
+public class COne implements PowerListener, InstanceListener<Reader>, OnDataReceivedListener {
 
 	private final ScannerCallback scannerCallback;
 	private final Context context;
-	private static final String AGRIDENT_WEDGE = "fr.coppernic.tools.cpcagridentwedge";
-	private String result = "";
-	private boolean isScanning = false;
-	private CountDownTimer countDownTimer;
-	private BroadcastReceiver broadcastReceiver;
+
+	private Reader reader;
 
 	public COne(ScannerCallback scannerCallback, Context context) {
 		this.scannerCallback = scannerCallback;
 		this.context = context;
-
-		setupBroadcastReceiver();
-		setupCountDownTimer();
 	}
 
 	public void scan() {
-		if (!isScanning) {
-			if (!isAppInstalled(context, AGRIDENT_WEDGE)) {
-				scannerCallback.error(AGRIDENT_WEDGE + " is not installed on the device");
-				return;
-			}
+		PowerManager.get().registerListener(this);
+		ConePeripheral.RFID_AGRIDENT_ABR200_GPIO.on(context);
+	}
 
-			Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(AGRIDENT_WEDGE);
-			if (launchIntent != null) {
-				result = "";
-				isScanning = true;
-				context.startActivity(launchIntent);
-				countDownTimer.start();
-			} else {
-				scannerCallback.error("Unknown error occurred");
-			}
+	@Override
+	public void onPowerUp(CpcResult.RESULT result, Peripheral peripheral) {
+		ReaderFactory.getInstance(context, this);
+	}
+
+	@Override
+	public void onPowerDown(CpcResult.RESULT result, Peripheral peripheral) {
+
+	}
+
+	@Override
+	public void onCreated(Reader reader) {
+		this.reader = reader;
+
+		reader.setOnDataReceivedListener(this);
+
+		CpcResult.RESULT result = reader.open("/dev/ttyHSL1", 9600);
+
+		if (result == CpcResult.RESULT.OK) {
+			result = reader.sendCommand(Commands.SET_RF_ON_CMD);
 		}
 	}
 
-	private void setupBroadcastReceiver() {
-		broadcastReceiver = new BroadcastReceiver() {
+	@Override
+	public void onDisposed(Reader reader) {
 
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				if (intent.getAction() != null && intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_SUCCESS)) {
-					result = intent.getStringExtra(CpcDefinitions.KEY_BARCODE_DATA);
-					isScanning = false;
-					countDownTimer.cancel();
-					scannerCallback.success(result);
-				} else if (intent.getAction().equals(CpcDefinitions.ACTION_AGRIDENT_ERROR)) {
-					if (isScanning)
-						scannerCallback.error("Scanner error occurred");
-				} else {
-					scannerCallback.error("Unknown error occurred");
-				}
-			}
-		};
-
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_SUCCESS);
-		intentFilter.addAction(CpcDefinitions.ACTION_AGRIDENT_ERROR);
-		context.registerReceiver(broadcastReceiver, intentFilter);
 	}
 
-	private void setupCountDownTimer() {
-		countDownTimer = new CountDownTimer(10000, 1000) {
+	@Override
+	public void onTagIdReceived(AgridentMessage agridentMessage, CpcResult.RESULT result) {
+		if (agridentMessage.getMessageType().equals(RFID_READ_SUCCESS)) {
+			scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
 
-			public void onTick(long millisUntilFinished) {
-			}
-
-			public void onFinish() {
-				isScanning = false;
-				if (!result.equals("")) {
-					scannerCallback.success(result);
-				} else {
-					scannerCallback.error("No RFID tag found");
-				}
-			}
-		};
-	}
-
-	private boolean isAppInstalled(Context context, String packageName) {
-		try {
-			context.getPackageManager().getApplicationInfo(packageName, 0);
-			return true;
-		} catch (PackageManager.NameNotFoundException e) {
-			return false;
+			reader.sendCommand(Commands.SET_RF_OFF_CMD);
+			reader.close();
 		}
+	}
+
+	@Override
+	public void onFirmwareReceived(String s, CpcResult.RESULT result) {
+
+	}
+
+	@Override
+	public void onSerialNumberReceived(String s, CpcResult.RESULT result) {
+
+	}
+
+	@Override
+	public void onCommandAckReceived(MessageType messageType, boolean b) {
+
+	}
+
+	@Override
+	public void onGetConfigReceived(byte b, CpcResult.RESULT result) {
+
+	}
+
+	@Override
+	public void onGetConfigAllReceived(Parameters[] parameters, CpcResult.RESULT result) {
+
+	}
+
+	@Override
+	public void onReaderInformationReceived(ReaderInformation readerInformation, int i) {
+
 	}
 }
