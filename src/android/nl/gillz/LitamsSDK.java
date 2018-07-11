@@ -1,5 +1,6 @@
 package nl.gillz;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.CountDownTimer;
 import nl.gillz.helpers.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class LitamsSDK extends CordovaPlugin implements ScannerCallback, BluetoothCallback {
 
+	private CordovaInterface cordovaInterface;
 	private Context context;
 	private CallbackContext callbackContext;
 	private PluginResult pluginResult;
@@ -35,13 +37,16 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public void initialize(CordovaInterface cordovaInterface, CordovaWebView cordovaWebView) {
 		super.initialize(cordovaInterface, cordovaWebView);
 
-		context = cordovaInterface.getActivity().getApplicationContext();
+		this.cordovaInterface = cordovaInterface;
+		this.context = cordovaInterface.getActivity().getApplicationContext();
 
 		setupCountDownTimer();
 
 		deviceName = Device.getInstance().getDeviceName();
 		sound = new Sound(context);
 		vibration = new Vibration(context);
+
+		checkPermissions();
 	}
 
 	@Override
@@ -80,6 +85,26 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 				executeScan();
 			}
 		};
+	}
+
+	private void checkPermissions() {
+		if (!cordovaInterface.hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+			cordovaInterface.requestPermission(this, 1, Manifest.permission.ACCESS_COARSE_LOCATION);
+		} else if (!cordovaInterface.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+			cordovaInterface.requestPermission(this, 2, Manifest.permission.ACCESS_FINE_LOCATION);
+		} else if (!cordovaInterface.hasPermission(Manifest.permission.BLUETOOTH)) {
+			cordovaInterface.requestPermission(this, 3, Manifest.permission.BLUETOOTH);
+		} else if (!cordovaInterface.hasPermission(Manifest.permission.BLUETOOTH_ADMIN)) {
+			cordovaInterface.requestPermission(this, 4, Manifest.permission.BLUETOOTH_ADMIN);
+		} else if (!cordovaInterface.hasPermission(Manifest.permission.VIBRATE)) {
+			cordovaInterface.requestPermission(this, 5, Manifest.permission.VIBRATE);
+		} else if (!cordovaInterface.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+			cordovaInterface.requestPermission(this, 6, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		}
+	}
+
+	public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+		checkPermissions();
 	}
 
 	private void scan() {
