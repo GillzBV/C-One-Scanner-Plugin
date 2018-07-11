@@ -9,6 +9,16 @@ function litamsSDK() {
 		);
 	};
 
+	this.isScanning = function (successCallback) {
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'isScanning',
+			[]
+		);
+	};
+
 	this.scan = function (successCallback, errorCallback, multiScan) {
 		if (multiScan == null)
 			multiScan = false;

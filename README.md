@@ -7,6 +7,11 @@ Used to check if a device can actually use a RFID scanner.
 
 **Parameters**
 - Function (will be used to return a boolean)
+### isScanning
+Used to check if a device is scanning at the moment.
+
+**Parameters**
+- Function (will be used to return a boolean)
 ### scan
 Scan a RFID tag.
 

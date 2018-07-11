@@ -55,6 +55,8 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 		if (action.equals("canScan")) {
 			callbackContext.success(Device.getInstance().canScan());
+		} else if (action.equals("isScanning")) {
+			callbackContext.success(isScanning ? 1 : 0);
 		} else if (action.equals("scan")) {
 			countdownTimer.cancel();
 			this.multiScan = args.getBoolean(0);
