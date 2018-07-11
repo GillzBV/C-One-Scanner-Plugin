@@ -47,10 +47,15 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 
 		reader.setOnDataReceivedListener(this);
 
-		CpcResult.RESULT result = reader.open("/dev/ttyHSL1", 9600);
+		CpcResult.RESULT openResult = reader.open("/dev/ttyHSL1", 9600);
 
-		if (result == CpcResult.RESULT.OK) {
-			result = reader.sendCommand(Commands.SET_RF_ON_CMD);
+		if (openResult == CpcResult.RESULT.OK) {
+			CpcResult.RESULT commandResult = reader.sendCommand(Commands.SET_RF_ON_CMD);
+			if (commandResult != CpcResult.RESULT.OK) {
+				scannerCallback.error("Scanner error occurred");
+			}
+		} else {
+			scannerCallback.error("Scanner error occurred");
 		}
 	}
 
@@ -62,7 +67,12 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 	@Override
 	public void onTagIdReceived(AgridentMessage agridentMessage, CpcResult.RESULT result) {
 		if (agridentMessage.getMessageType().equals(RFID_READ_SUCCESS)) {
-			scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
+
+			if (agridentMessage.getData().length == 29) {
+				scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
+			} else {
+				scannerCallback.error("Could not read tag data");
+			}
 
 			reader.sendCommand(Commands.SET_RF_OFF_CMD);
 			reader.close();
