@@ -62,6 +62,8 @@
 		<resource-file src="libs/armeabi-v7a/libIAL.so" target="libs/armeabi-v7a/libIAL.so"/>
 		<resource-file src="libs/armeabi-v7a/libIGLBarDecoder.so" target="libs/armeabi-v7a/libIGLBarDecoder.so"/>
 		<resource-file src="libs/armeabi-v7a/libIGLImageAE.so" target="libs/armeabi-v7a/libIGLImageAE.so"/>
+		<resource-file src="libs/armeabi-v7a/liblfrfid.so" target="libs/armeabi-v7a/liblfrfid.so"/>
+		<resource-file src="libs/armeabi-v7a/libpackage.so" target="libs/armeabi-v7a/libpackage.so"/>
 		<resource-file src="libs/armeabi-v7a/libSDL.so" target="libs/armeabi-v7a/libSDL.so"/>
 		<resource-file src="res/raw/success.wav" target="res/raw/success.wav"/>
 		<resource-file src="res/raw/fail.wav" target="res/raw/fail.wav"/>
