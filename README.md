@@ -19,6 +19,7 @@ Scan a RFID tag.
 - Function (will be used to return a string when scanning is successful)
 - Function (will be used to return a string if scanning failed)
 - Boolean (provide false for a single scan, provide true for multiple scans in a row)
+- Integer (the duration before a scan times out)
 ### stopScan
 Stop a RFID multiscan
 

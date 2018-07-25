@@ -19,15 +19,17 @@ function litamsSDK() {
 		);
 	};
 
-	this.scan = function (successCallback, errorCallback, multiScan) {
+	this.scan = function (successCallback, errorCallback, multiScan, duration) {
 		if (multiScan == null)
 			multiScan = false;
+		if (duration == null)
+			duration = 15000;
 		cordova.exec(
 			successCallback,
 			errorCallback,
 			'LitamsSDK',
 			'scan',
-			[multiScan]
+			[multiScan, duration]
 		);
 	};
 

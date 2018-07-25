@@ -29,9 +29,11 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	private Bluetooth bluetooth = null;
 
 	private Boolean isScanning = false;
-	private Boolean multiScan = false;
 	private List<String> results = new ArrayList<String>();
 	private Integer error = 0;
+
+	private Boolean multiScan = false;
+	private Integer duration = 15000;
 
 	@Override
 	public void initialize(CordovaInterface cordovaInterface, CordovaWebView cordovaWebView) {
@@ -59,8 +61,9 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 			callbackContext.success(isScanning ? 1 : 0);
 		} else if (action.equals("scan")) {
 			countdownTimer.cancel();
-			this.multiScan = args.getBoolean(0);
 			results.clear();
+			multiScan = args.getBoolean(0);
+			duration = args.getInt(1);
 			scan();
 		} else if (action.equals("stopScan")) {
 			stop();
@@ -129,10 +132,10 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 	private void executeScan() {
 		if (c4000 != null)
-			c4000.scan();
+			c4000.scan(duration);
 
 		if (cOne != null)
-			cOne.scan();
+			cOne.scan(duration);
 	}
 
 	private void startBluetooth() {
@@ -198,16 +201,16 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public void error(String result) {
 		if (isScanning) {
 			error++;
-			if (error > 2) {
-				stop();
-			} else {
-				sound.play(ScanStatus.ERROR);
-				vibration.vibrate(ScanStatus.ERROR);
-				if (multiScan) {
-					countdownTimer.start();
+			sound.play(ScanStatus.ERROR);
+			vibration.vibrate(ScanStatus.ERROR);
+			if (multiScan) {
+				if (error >= 2) {
+					stop();
 				} else {
-					callbackContext.error(result);
+					countdownTimer.start();
 				}
+			} else {
+				callbackContext.error(result);
 			}
 		}
 	}
@@ -215,9 +218,10 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	private void stop() {
 		isScanning = false;
 		countdownTimer.cancel();
-		this.multiScan = false;
 		error = 0;
 		results.clear();
+		multiScan = false;
+		duration = 15000;
 		callbackContext.success("Scan stopped");
 	}
 

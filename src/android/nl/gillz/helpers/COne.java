@@ -27,11 +27,10 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 	public COne(ScannerCallback scannerCallback, Context context) {
 		this.scannerCallback = scannerCallback;
 		this.context = context;
-
-		setupCountDownTimer();
 	}
 
-	public void scan() {
+	public void scan(Integer duration) {
+		setupCountDownTimer(duration);
 		countdownTimer.start();
 
 		PowerManager.get().registerListener(this);
@@ -48,8 +47,8 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 
 	}
 
-	private void setupCountDownTimer() {
-		countdownTimer = new CountDownTimer(10000, 1000) {
+	private void setupCountDownTimer(Integer duration) {
+		countdownTimer = new CountDownTimer(duration, 1000) {
 
 			public void onTick(long millisUntilFinished) {
 			}
