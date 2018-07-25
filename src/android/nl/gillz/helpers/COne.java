@@ -88,7 +88,6 @@ public class COne implements PowerListener, InstanceListener<Reader>, OnDataRece
 	@Override
 	public void onTagIdReceived(AgridentMessage agridentMessage, CpcResult.RESULT result) {
 		if (agridentMessage.getMessageType().equals(RFID_READ_SUCCESS)) {
-
 			if (agridentMessage.getData().length == 29) {
 				scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
 			} else {

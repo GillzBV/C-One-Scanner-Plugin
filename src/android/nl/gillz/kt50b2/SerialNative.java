@@ -1,4 +1,4 @@
-package com.android.lflibs;
+package nl.gillz.kt50b2;
 
 public class SerialNative {
 
