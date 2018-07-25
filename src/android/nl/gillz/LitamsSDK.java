@@ -26,6 +26,8 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 	private C4000 c4000 = null;
 	private COne cOne = null;
+	private KT50B2 kt50B2 = null;
+
 	private Bluetooth bluetooth = null;
 
 	private Boolean isScanning = false;
@@ -58,15 +60,21 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 		if (action.equals("canScan")) {
 			callbackContext.success(Device.getInstance().canScan());
 		} else if (action.equals("isScanning")) {
-			callbackContext.success(isScanning ? 1 : 0);
+			if (Device.getInstance().canScan() == 1) {
+				callbackContext.success(isScanning ? 1 : 0);
+			}
 		} else if (action.equals("scan")) {
-			countdownTimer.cancel();
-			results.clear();
-			multiScan = args.getBoolean(0);
-			duration = args.getInt(1);
-			scan();
+			if (Device.getInstance().canScan() == 1) {
+				countdownTimer.cancel();
+				results.clear();
+				multiScan = args.getBoolean(0);
+				duration = args.getInt(1);
+				scan();
+			}
 		} else if (action.equals("stopScan")) {
-			stop();
+			if (Device.getInstance().canScan() == 1) {
+				stop();
+			}
 		} else if (action.equals("startBluetooth")) {
 			startBluetooth();
 		} else if (action.equals("sendBluetoothMessage")) {
@@ -125,6 +133,8 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 			c4000 = new C4000(this, context);
 		} else if (deviceName.equals("C-One") && cOne == null) {
 			cOne = new COne(this, context);
+		} else if (deviceName.equals("KT50_B2") && kt50B2 == null) {
+			kt50B2 = new KT50B2(this, context);
 		}
 
 		executeScan();
@@ -136,6 +146,9 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 		if (cOne != null)
 			cOne.scan(duration);
+
+		if (kt50B2 != null)
+			kt50B2.scan(duration);
 	}
 
 	private void startBluetooth() {

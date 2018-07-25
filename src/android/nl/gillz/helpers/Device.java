@@ -13,6 +13,7 @@ public class Device {
 	private Device() {
 		devices.add("C4000");
 		devices.add("C-One");
+		devices.add("KT50_B2");
 	}
 
 	public static Device getInstance() {
