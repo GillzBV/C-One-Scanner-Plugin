@@ -36,8 +36,8 @@
 		<source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
 		<source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/kt50b2/DeviceControl.java" target-dir="src/nl/gillz/LitamsSDK/kt50b2"/>
-		<source-file src="src/android/nl/gillz/kt50b2/SerialNative.java" target-dir="src/nl/gillz/LitamsSDK/kt50b2"/>
+		<source-file src="src/android/com/android/lflibs/DeviceControl.java" target-dir="src/com/android/lflibs/"/>
+		<source-file src="src/android/com/android/lflibs/serial_native.java" target-dir="src/com/android/lflibs/"/>
 		<resource-file src="libs/cw-deviceapi20180628.jar" target="libs/cw-deviceapi20180628.jar"/>
 		<resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
 		<resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>

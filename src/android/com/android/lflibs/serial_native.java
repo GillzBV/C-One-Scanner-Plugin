@@ -1,6 +1,6 @@
-package nl.gillz.kt50b2;
+package com.android.lflibs;
 
-public class SerialNative {
+public class serial_native {
 
 	private int fd;
 	private int delay = 100;

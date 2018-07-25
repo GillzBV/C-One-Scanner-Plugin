@@ -1,8 +1,8 @@
 package nl.gillz.helpers;
 
 import android.content.Context;
-import nl.gillz.kt50b2.DeviceControl;
-import nl.gillz.kt50b2.SerialNative;
+import com.android.lflibs.DeviceControl;
+import com.android.lflibs.serial_native;
 
 public class KT50B2 {
 
@@ -10,7 +10,7 @@ public class KT50B2 {
 	private final Context context;
 
 	private DeviceControl deviceControl;
-	private SerialNative serialNative;
+	private serial_native serialNative;
 
 	public KT50B2(ScannerCallback scannerCallback, Context context) {
 		this.scannerCallback = scannerCallback;
@@ -25,7 +25,7 @@ public class KT50B2 {
 	}
 
 	private void setupSerialNative() {
-		serialNative = new SerialNative();
+		serialNative = new serial_native();
 
 		if (serialNative.OpenComPort("/dev/ttyMT2") < 0) {
 			scannerCallback.error("Scanner error occurred");
