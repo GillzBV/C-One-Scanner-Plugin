@@ -198,7 +198,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public void error(String result) {
 		if (isScanning) {
 			error++;
-			if (error > 5) {
+			if (error > 2) {
 				stop();
 			} else {
 				sound.play(ScanStatus.ERROR);
@@ -216,6 +216,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 		isScanning = false;
 		countdownTimer.cancel();
 		this.multiScan = false;
+		error = 0;
 		results.clear();
 		callbackContext.success("Scan stopped");
 	}
