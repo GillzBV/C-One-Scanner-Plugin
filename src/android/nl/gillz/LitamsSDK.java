@@ -57,7 +57,23 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		this.callbackContext = callbackContext;
 
-		if (action.equals("canScan")) {
+		if (action.equals("playSound")) {
+			Integer scanStatus = args.getInt(0);
+			Boolean vibrate = args.getBoolean(1);
+			switch (scanStatus) {
+				case 1:
+					playSound(ScanStatus.SUCCESS, vibrate);
+					break;
+				case 2:
+					playSound(ScanStatus.FAIL, vibrate);
+					break;
+				case 3:
+				default:
+					playSound(ScanStatus.ERROR, vibrate);
+					break;
+			}
+			callbackContext.success(scanStatus);
+		} else if (action.equals("canScan")) {
 			callbackContext.success(Device.getInstance().canScan());
 		} else if (action.equals("isScanning")) {
 			if (Device.getInstance().canScan() == 1) {
@@ -186,14 +202,11 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public void success(String result) {
 		error = 0;
 		if (multiScan && !results.contains(result)) {
-			sound.play(ScanStatus.SUCCESS);
-			vibration.vibrate(ScanStatus.SUCCESS);
+			playSound(ScanStatus.SUCCESS, true);
 		} else if (multiScan && results.contains(result)) {
-			sound.play(ScanStatus.FAIL);
-			vibration.vibrate(ScanStatus.FAIL);
+			playSound(ScanStatus.FAIL, true);
 		} else {
-			sound.play(ScanStatus.SUCCESS);
-			vibration.vibrate(ScanStatus.SUCCESS);
+			playSound(ScanStatus.SUCCESS, true);
 		}
 
 		if (multiScan) {
@@ -214,8 +227,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	public void error(String result) {
 		if (isScanning) {
 			error++;
-			sound.play(ScanStatus.ERROR);
-			vibration.vibrate(ScanStatus.ERROR);
+			playSound(ScanStatus.ERROR, true);
 			if (multiScan) {
 				if (error >= 2) {
 					stop();
@@ -236,6 +248,13 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 		multiScan = false;
 		duration = 15000;
 		callbackContext.success("Scan stopped");
+	}
+
+	private void playSound(ScanStatus scanStatus, Boolean vibrate) {
+		sound.play(scanStatus);
+		if (vibrate) {
+			vibration.vibrate(scanStatus);
+		}
 	}
 
 	@Override

@@ -1,4 +1,20 @@
 function litamsSDK() {
+	this.playSound = function (successCallback, scanStatus, vibrate) {
+		if (scanStatus == null)
+			scanStatus = 1;
+
+		if (vibrate == null)
+			vibrate = false;
+
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'playSound',
+			[scanStatus, vibrate]
+		);
+	};
+
 	this.canScan = function (successCallback) {
 		cordova.exec(
 			successCallback,
@@ -22,8 +38,10 @@ function litamsSDK() {
 	this.scan = function (successCallback, errorCallback, multiScan, duration) {
 		if (multiScan == null)
 			multiScan = false;
+
 		if (duration == null)
 			duration = 15000;
+
 		cordova.exec(
 			successCallback,
 			errorCallback,
@@ -54,14 +72,16 @@ function litamsSDK() {
 	};
 
 	this.sendBluetoothMessage = function (successCallback, message) {
-		if (message != null)
-			cordova.exec(
-				successCallback,
-				null,
-				'LitamsSDK',
-				'sendBluetoothMessage',
-				[message]
-			);
+		if (message == null)
+			message = '';
+
+		cordova.exec(
+			successCallback,
+			null,
+			'LitamsSDK',
+			'sendBluetoothMessage',
+			[message]
+		);
 	};
 
 	this.stopBluetooth = function (successCallback) {

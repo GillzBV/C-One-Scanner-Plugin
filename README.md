@@ -2,6 +2,13 @@
 SDK created to implement with a Cordova application, has native Android functions designed for the Litams application.
 ## Functions
 Functions that can be invoked with javascript and their parameters and return values.
+### playSound
+Plays a sound and and makes a optional vibration from the device.
+
+**Parameters**
+- Function (will be used to just return the scanStatus input)
+- Integer (the scanStatus used for the sound, 1 = SUCCESS, 2 = FAIL, 3 = ERROR)
+- Boolean (provide false to have no vibration, provide true to vibrate the device)
 ### canScan
 Used to check if a device can actually use a RFID scanner.
 
