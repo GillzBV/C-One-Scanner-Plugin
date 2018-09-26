@@ -200,26 +200,28 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
 	@Override
 	public void success(String result) {
-		error = 0;
-		if (multiScan && !results.contains(result)) {
-			playSound(ScanStatus.SUCCESS, true);
-		} else if (multiScan && results.contains(result)) {
-			playSound(ScanStatus.FAIL, true);
-		} else {
-			playSound(ScanStatus.SUCCESS, true);
-		}
+		if (isScanning) {
+			error = 0;
+			if (multiScan && !results.contains(result)) {
+				playSound(ScanStatus.SUCCESS, true);
+			} else if (multiScan && results.contains(result)) {
+				playSound(ScanStatus.FAIL, true);
+			} else {
+				playSound(ScanStatus.SUCCESS, true);
+			}
 
-		if (multiScan) {
-			results.add(result);
+			if (multiScan) {
+				results.add(result);
 
-			pluginResult = new PluginResult(PluginResult.Status.OK, result);
-			pluginResult.setKeepCallback(true);
-			callbackContext.sendPluginResult(pluginResult);
+				pluginResult = new PluginResult(PluginResult.Status.OK, result);
+				pluginResult.setKeepCallback(true);
+				callbackContext.sendPluginResult(pluginResult);
 
-			countdownTimer.start();
-		} else {
-			isScanning = false;
-			callbackContext.success(result);
+				countdownTimer.start();
+			} else {
+				isScanning = false;
+				callbackContext.success(result);
+			}
 		}
 	}
 
