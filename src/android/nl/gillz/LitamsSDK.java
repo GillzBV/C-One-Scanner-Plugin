@@ -181,7 +181,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	private void startBluetooth() {
 		PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
 		pluginResult.setKeepCallback(true);
-		this.callbackContexts.get("startBluetooth").sendPluginResult(pluginResult);
+		this.callbackContexts.get("bluetooth").sendPluginResult(pluginResult);
 
 		if (bluetooth == null) {
 			bluetooth = new Bluetooth(this, context);
@@ -193,7 +193,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	private void sendBluetoothMessage(String message) {
 		PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
 		pluginResult.setKeepCallback(true);
-		this.callbackContexts.get("sendBluetoothMessage").sendPluginResult(pluginResult);
+		this.callbackContexts.get("bluetooth").sendPluginResult(pluginResult);
 
 		if (bluetooth == null) {
 			bluetooth = new Bluetooth(this, context);
@@ -203,6 +203,10 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 	}
 
 	private void stopBluetooth() {
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+        pluginResult.setKeepCallback(true);
+        this.callbackContexts.get("bluetooth").sendPluginResult(pluginResult);
+
 		if (bluetooth != null) {
 			bluetooth.stopConnection();
 			bluetooth = null;
