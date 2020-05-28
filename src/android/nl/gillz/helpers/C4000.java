@@ -7,61 +7,61 @@ import com.rscja.deviceapi.exception.ConfigurationException;
 
 public class C4000 {
 
-	private final ScannerCallback scannerCallback;
-	private final Context context;
+    private final ScannerCallback scannerCallback;
+    private final Context context;
 
-	private CountDownTimer countdownTimer;
+    private CountDownTimer countdownTimer;
 
-	private RFIDWithLF rfidWithLF;
+    private RFIDWithLF rfidWithLF;
 
-	private Boolean scanning = false;
+    private Boolean scanning = false;
 
-	public C4000(ScannerCallback scannerCallback, Context context) {
-		this.scannerCallback = scannerCallback;
-		this.context = context;
+    public C4000(ScannerCallback scannerCallback, Context context) {
+        this.scannerCallback = scannerCallback;
+        this.context = context;
 
-		setupRfidWithLF();
-	}
+        setupRfidWithLF();
+    }
 
-	public void scan(Integer duration) {
-		setupCountDownTimer(duration);
-		countdownTimer.start();
+    public void scan(Integer duration) {
+        setupCountDownTimer(duration);
+        countdownTimer.start();
 
-		scanning = true;
-		read();
-	}
+        scanning = true;
+        read();
+    }
 
-	private void setupRfidWithLF() {
-		try {
-			rfidWithLF = RFIDWithLF.getInstance();
-			rfidWithLF.initWithNeedleTag();
-		} catch (ConfigurationException configurationException) {
-			scannerCallback.error("Scanner error occurred");
-		}
-	}
+    private void setupRfidWithLF() {
+        try {
+            rfidWithLF = RFIDWithLF.getInstance();
+            rfidWithLF.initWithNeedleTag();
+        } catch (ConfigurationException configurationException) {
+            scannerCallback.error("Scanner error occurred");
+        }
+    }
 
-	private void setupCountDownTimer(Integer duration) {
-		countdownTimer = new CountDownTimer(duration, 1000) {
+    private void setupCountDownTimer(Integer duration) {
+        countdownTimer = new CountDownTimer(duration, 1000) {
 
-			public void onTick(long millisUntilFinished) {
-			}
+            public void onTick(long millisUntilFinished) {
+            }
 
-			public void onFinish() {
-				scannerCallback.error("Scan expired");
-				scanning = false;
-			}
-		};
-	}
+            public void onFinish() {
+                scannerCallback.error("Scan expired");
+                scanning = false;
+            }
+        };
+    }
 
-	private void read() {
-		String result = rfidWithLF.readWithNeedleTag();
+    private void read() {
+        String result = rfidWithLF.readWithNeedleTag();
 
-		if (result != null && !result.equals("") && !result.equals("-1")) {
-			scanning = false;
-			countdownTimer.cancel();
-			scannerCallback.success(result);
-		} else if (scanning) {
-			read();
-		}
-	}
+        if (result != null && !result.equals("") && !result.equals("-1")) {
+            scanning = false;
+            countdownTimer.cancel();
+            scannerCallback.success(result);
+        } else if (scanning) {
+            read();
+        }
+    }
 }

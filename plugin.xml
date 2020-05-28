@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="LitamsSDK" version="0.0.1">
-	<name>LitamsSDK</name>
-	<description>LitamsSDK</description>
-	<license>MIT</license>
-	<keywords>LitamsSDK</keywords>
-	<js-module name="LitamsSDK" src="www/LitamsSDK.js">
-		<clobbers target="cordova.plugins.LitamsSDK"/>
-	</js-module>
-	<engines>
-		<engine name="cordova" version=">=3.6.0"/>
-	</engines>
-	<platform name="android">
-		<framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
-		<config-file target="AndroidManifest.xml" parent="/manifest">
-			<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-			<uses-permission android:name="android.permission.BLUETOOTH"/>
-			<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-			<uses-permission android:name="android.permission.VIBRATE"/>
-			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-		</config-file>
-		<config-file target="res/xml/config.xml" parent="/*">
-			<feature name="LitamsSDK">
-				<param name="android-package" value="nl.gillz.LitamsSDK"/>
-			</feature>
-		</config-file>
-		<source-file src="src/android/nl/gillz/LitamsSDK.java" target-dir="src/nl/gillz/LitamsSDK"/>
-		<source-file src="src/android/nl/gillz/helpers/Bluetooth.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/BluetoothCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/C4000.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/KT50B2.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/ScannerCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
-		<source-file src="src/android/com/android/lflibs/DeviceControl.java" target-dir="src/com/android/lflibs/"/>
-		<source-file src="src/android/com/android/lflibs/serial_native.java" target-dir="src/com/android/lflibs/"/>
-		<resource-file src="libs/cw-deviceapi20180628.jar" target="libs/cw-deviceapi20180628.jar"/>
-		<resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
-		<resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
-		<resource-file src="libs/armeabi/libbarcodereader44.so" target="libs/armeabi/libbarcodereader44.so"/>
-		<resource-file src="libs/armeabi/libDeviceAPI.so" target="libs/armeabi/libDeviceAPI.so"/>
-		<resource-file src="libs/armeabi/libHHPScanInterface.so" target="libs/armeabi/libHHPScanInterface.so"/>
-		<resource-file src="libs/armeabi/libHSMDecoderAPI.so" target="libs/armeabi/libHSMDecoderAPI.so"/>
-		<resource-file src="libs/armeabi/libHsmKil.so" target="libs/armeabi/libHsmKil.so"/>
-		<resource-file src="libs/armeabi/libIAL.so" target="libs/armeabi/libIAL.so"/>
-		<resource-file src="libs/armeabi/libIGLBarDecoder.so" target="libs/armeabi/libIGLBarDecoder.so"/>
-		<resource-file src="libs/armeabi/libIGLImageAE.so" target="libs/armeabi/libIGLImageAE.so"/>
-		<resource-file src="libs/armeabi/liblfrfid.so" target="libs/armeabi/liblfrfid.so"/>
-		<resource-file src="libs/armeabi/libpackage.so" target="libs/armeabi/libpackage.so"/>
-		<resource-file src="libs/armeabi/libSDL.so" target="libs/armeabi/libSDL.so"/>
-		<resource-file src="libs/armeabi-v7a/libbarcodereader.so" target="libs/armeabi-v7a/libbarcodereader.so"/>
-		<resource-file src="libs/armeabi-v7a/libbarcodereader43.so" target="libs/armeabi-v7a/libbarcodereader43.so"/>
-		<resource-file src="libs/armeabi-v7a/libbarcodereader44.so" target="libs/armeabi-v7a/libbarcodereader44.so"/>
-		<resource-file src="libs/armeabi-v7a/libDeviceAPI.so" target="libs/armeabi-v7a/libDeviceAPI.so"/>
-		<resource-file src="libs/armeabi-v7a/libHHPScanInterface.so" target="libs/armeabi-v7a/libHHPScanInterface.so"/>
-		<resource-file src="libs/armeabi-v7a/libHSMDecoderAPI.so" target="libs/armeabi-v7a/libHSMDecoderAPI.so"/>
-		<resource-file src="libs/armeabi-v7a/libHsmKil.so" target="libs/armeabi-v7a/libHsmKil.so"/>
-		<resource-file src="libs/armeabi-v7a/libIAL.so" target="libs/armeabi-v7a/libIAL.so"/>
-		<resource-file src="libs/armeabi-v7a/libIGLBarDecoder.so" target="libs/armeabi-v7a/libIGLBarDecoder.so"/>
-		<resource-file src="libs/armeabi-v7a/libIGLImageAE.so" target="libs/armeabi-v7a/libIGLImageAE.so"/>
-		<resource-file src="libs/armeabi-v7a/liblfrfid.so" target="libs/armeabi-v7a/liblfrfid.so"/>
-		<resource-file src="libs/armeabi-v7a/libpackage.so" target="libs/armeabi-v7a/libpackage.so"/>
-		<resource-file src="libs/armeabi-v7a/libSDL.so" target="libs/armeabi-v7a/libSDL.so"/>
-		<resource-file src="res/raw/success.wav" target="res/raw/success.wav"/>
-		<resource-file src="res/raw/fail.wav" target="res/raw/fail.wav"/>
-		<resource-file src="res/raw/error.wav" target="res/raw/error.wav"/>
-	</platform>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="LitamsSDK" version="1.0.0">
+    <name>LitamsSDK</name>
+    <description>LitamsSDK</description>
+    <license>MIT</license>
+    <keywords>LitamsSDK</keywords>
+    <js-module name="LitamsSDK" src="www/LitamsSDK.js">
+        <clobbers target="cordova.plugins.LitamsSDK"/>
+    </js-module>
+    <engines>
+        <engine name="cordova" version=">=3.6.0"/>
+    </engines>
+    <platform name="android">
+        <framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        </config-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="LitamsSDK">
+                <param name="android-package" value="nl.gillz.LitamsSDK"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/nl/gillz/LitamsSDK.java" target-dir="src/nl/gillz/LitamsSDK"/>
+        <source-file src="src/android/nl/gillz/helpers/Bluetooth.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/BluetoothCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/C4000.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/KT50B2.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/ScannerCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/com/android/lflibs/DeviceControl.java" target-dir="src/com/android/lflibs/"/>
+        <source-file src="src/android/com/android/lflibs/serial_native.java" target-dir="src/com/android/lflibs/"/>
+        <resource-file src="libs/cw-deviceapi20180628.jar" target="libs/cw-deviceapi20180628.jar"/>
+        <resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
+        <resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
+        <resource-file src="libs/armeabi/libbarcodereader44.so" target="libs/armeabi/libbarcodereader44.so"/>
+        <resource-file src="libs/armeabi/libDeviceAPI.so" target="libs/armeabi/libDeviceAPI.so"/>
+        <resource-file src="libs/armeabi/libHHPScanInterface.so" target="libs/armeabi/libHHPScanInterface.so"/>
+        <resource-file src="libs/armeabi/libHSMDecoderAPI.so" target="libs/armeabi/libHSMDecoderAPI.so"/>
+        <resource-file src="libs/armeabi/libHsmKil.so" target="libs/armeabi/libHsmKil.so"/>
+        <resource-file src="libs/armeabi/libIAL.so" target="libs/armeabi/libIAL.so"/>
+        <resource-file src="libs/armeabi/libIGLBarDecoder.so" target="libs/armeabi/libIGLBarDecoder.so"/>
+        <resource-file src="libs/armeabi/libIGLImageAE.so" target="libs/armeabi/libIGLImageAE.so"/>
+        <resource-file src="libs/armeabi/liblfrfid.so" target="libs/armeabi/liblfrfid.so"/>
+        <resource-file src="libs/armeabi/libpackage.so" target="libs/armeabi/libpackage.so"/>
+        <resource-file src="libs/armeabi/libSDL.so" target="libs/armeabi/libSDL.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader.so" target="libs/armeabi-v7a/libbarcodereader.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader43.so" target="libs/armeabi-v7a/libbarcodereader43.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader44.so" target="libs/armeabi-v7a/libbarcodereader44.so"/>
+        <resource-file src="libs/armeabi-v7a/libDeviceAPI.so" target="libs/armeabi-v7a/libDeviceAPI.so"/>
+        <resource-file src="libs/armeabi-v7a/libHHPScanInterface.so" target="libs/armeabi-v7a/libHHPScanInterface.so"/>
+        <resource-file src="libs/armeabi-v7a/libHSMDecoderAPI.so" target="libs/armeabi-v7a/libHSMDecoderAPI.so"/>
+        <resource-file src="libs/armeabi-v7a/libHsmKil.so" target="libs/armeabi-v7a/libHsmKil.so"/>
+        <resource-file src="libs/armeabi-v7a/libIAL.so" target="libs/armeabi-v7a/libIAL.so"/>
+        <resource-file src="libs/armeabi-v7a/libIGLBarDecoder.so" target="libs/armeabi-v7a/libIGLBarDecoder.so"/>
+        <resource-file src="libs/armeabi-v7a/libIGLImageAE.so" target="libs/armeabi-v7a/libIGLImageAE.so"/>
+        <resource-file src="libs/armeabi-v7a/liblfrfid.so" target="libs/armeabi-v7a/liblfrfid.so"/>
+        <resource-file src="libs/armeabi-v7a/libpackage.so" target="libs/armeabi-v7a/libpackage.so"/>
+        <resource-file src="libs/armeabi-v7a/libSDL.so" target="libs/armeabi-v7a/libSDL.so"/>
+        <resource-file src="res/raw/success.wav" target="res/raw/success.wav"/>
+        <resource-file src="res/raw/fail.wav" target="res/raw/fail.wav"/>
+        <resource-file src="res/raw/error.wav" target="res/raw/error.wav"/>
+    </platform>
 </plugin>

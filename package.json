@@ -1,22 +1,15 @@
 {
-	"name"       : "LitamsSDK",
-	"version"    : "0.0.1",
-	"description": "LitamsSDK",
-	"cordova"    : {
-		"id"       : "LitamsSDK",
-		"platforms": [
-			"android"
-		]
-	},
-	"keywords"   : [
-		"LitamsSDK"
-	],
-	"engines"    : [
-		{
-			"name"   : "cordova",
-			"version": ">=3.6.0"
-		}
-	],
-	"author"     : "Lars Noorlander",
-	"license"    : "MIT"
+    "name": "litams-sdk",
+    "version": "1.0.0",
+    "description": "LitamsSDK",
+    "cordova": {
+        "id": "LitamsSDK",
+        "platforms": [
+            "android"
+        ]
+    },
+    "keywords": [
+        "LitamsSDK"
+    ],
+    "author": "Lars Noorlander"
 }

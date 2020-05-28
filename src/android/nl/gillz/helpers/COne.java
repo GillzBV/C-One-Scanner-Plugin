@@ -17,117 +17,117 @@ import static fr.coppernic.sdk.agrident.MessageType.RFID_READ_SUCCESS;
 
 public class COne implements PowerListener, InstanceListener<Reader>, OnDataReceivedListener {
 
-	private final ScannerCallback scannerCallback;
-	private final Context context;
+    private final ScannerCallback scannerCallback;
+    private final Context context;
 
-	private CountDownTimer countdownTimer;
+    private CountDownTimer countdownTimer;
 
-	private Reader reader;
+    private Reader reader;
 
-	public COne(ScannerCallback scannerCallback, Context context) {
-		this.scannerCallback = scannerCallback;
-		this.context = context;
-	}
+    public COne(ScannerCallback scannerCallback, Context context) {
+        this.scannerCallback = scannerCallback;
+        this.context = context;
+    }
 
-	public void scan(Integer duration) {
-		setupCountDownTimer(duration);
-		countdownTimer.start();
+    public void scan(Integer duration) {
+        setupCountDownTimer(duration);
+        countdownTimer.start();
 
-		PowerManager.get().registerListener(this);
-		ConePeripheral.RFID_AGRIDENT_ABR200_GPIO.on(context);
-	}
+        PowerManager.get().registerListener(this);
+        ConePeripheral.RFID_AGRIDENT_ABR200_GPIO.on(context);
+    }
 
-	@Override
-	public void onPowerUp(CpcResult.RESULT result, Peripheral peripheral) {
-		ReaderFactory.getInstance(context, this);
-	}
+    @Override
+    public void onPowerUp(CpcResult.RESULT result, Peripheral peripheral) {
+        ReaderFactory.getInstance(context, this);
+    }
 
-	@Override
-	public void onPowerDown(CpcResult.RESULT result, Peripheral peripheral) {
+    @Override
+    public void onPowerDown(CpcResult.RESULT result, Peripheral peripheral) {
 
-	}
+    }
 
-	private void setupCountDownTimer(Integer duration) {
-		countdownTimer = new CountDownTimer(duration, 1000) {
+    private void setupCountDownTimer(Integer duration) {
+        countdownTimer = new CountDownTimer(duration, 1000) {
 
-			public void onTick(long millisUntilFinished) {
-			}
+            public void onTick(long millisUntilFinished) {
+            }
 
-			public void onFinish() {
-				scannerCallback.error("Scan expired");
+            public void onFinish() {
+                scannerCallback.error("Scan expired");
 
-				reader.sendCommand(Commands.SET_RF_OFF_CMD);
-				reader.close();
-			}
-		};
-	}
+                reader.sendCommand(Commands.SET_RF_OFF_CMD);
+                reader.close();
+            }
+        };
+    }
 
-	@Override
-	public void onCreated(Reader reader) {
-		this.reader = reader;
+    @Override
+    public void onCreated(Reader reader) {
+        this.reader = reader;
 
-		reader.setOnDataReceivedListener(this);
+        reader.setOnDataReceivedListener(this);
 
-		CpcResult.RESULT openResult = reader.open("/dev/ttyHSL1", 9600);
+        CpcResult.RESULT openResult = reader.open("/dev/ttyHSL1", 9600);
 
-		if (openResult == CpcResult.RESULT.OK) {
-			CpcResult.RESULT commandResult = reader.sendCommand(Commands.SET_RF_ON_CMD);
-			if (commandResult != CpcResult.RESULT.OK) {
-				scannerCallback.error("Scanner error occurred");
-			}
-		} else {
-			scannerCallback.error("Scanner error occurred");
-		}
-	}
+        if (openResult == CpcResult.RESULT.OK) {
+            CpcResult.RESULT commandResult = reader.sendCommand(Commands.SET_RF_ON_CMD);
+            if (commandResult != CpcResult.RESULT.OK) {
+                scannerCallback.error("Scanner error occurred");
+            }
+        } else {
+            scannerCallback.error("Scanner error occurred");
+        }
+    }
 
-	@Override
-	public void onDisposed(Reader reader) {
+    @Override
+    public void onDisposed(Reader reader) {
 
-	}
+    }
 
-	@Override
-	public void onTagIdReceived(AgridentMessage agridentMessage, CpcResult.RESULT result) {
-		if (agridentMessage.getMessageType().equals(RFID_READ_SUCCESS)) {
-			if (agridentMessage.getData().length == 29) {
-				scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
-			} else {
-				scannerCallback.error("Could not read tag data");
-			}
+    @Override
+    public void onTagIdReceived(AgridentMessage agridentMessage, CpcResult.RESULT result) {
+        if (agridentMessage.getMessageType().equals(RFID_READ_SUCCESS)) {
+            if (agridentMessage.getData().length == 29) {
+                scannerCallback.success(CpcBytes.byteArrayToUtf8String(Arrays.copyOfRange(agridentMessage.getData(), 6, 21)));
+            } else {
+                scannerCallback.error("Could not read tag data");
+            }
 
-			countdownTimer.cancel();
+            countdownTimer.cancel();
 
-			reader.sendCommand(Commands.SET_RF_OFF_CMD);
-			reader.close();
-		}
-	}
+            reader.sendCommand(Commands.SET_RF_OFF_CMD);
+            reader.close();
+        }
+    }
 
-	@Override
-	public void onFirmwareReceived(String s, CpcResult.RESULT result) {
+    @Override
+    public void onFirmwareReceived(String s, CpcResult.RESULT result) {
 
-	}
+    }
 
-	@Override
-	public void onSerialNumberReceived(String s, CpcResult.RESULT result) {
+    @Override
+    public void onSerialNumberReceived(String s, CpcResult.RESULT result) {
 
-	}
+    }
 
-	@Override
-	public void onCommandAckReceived(MessageType messageType, boolean b) {
+    @Override
+    public void onCommandAckReceived(MessageType messageType, boolean b) {
 
-	}
+    }
 
-	@Override
-	public void onGetConfigReceived(byte b, CpcResult.RESULT result) {
+    @Override
+    public void onGetConfigReceived(byte b, CpcResult.RESULT result) {
 
-	}
+    }
 
-	@Override
-	public void onGetConfigAllReceived(Parameters[] parameters, CpcResult.RESULT result) {
+    @Override
+    public void onGetConfigAllReceived(Parameters[] parameters, CpcResult.RESULT result) {
 
-	}
+    }
 
-	@Override
-	public void onReaderInformationReceived(ReaderInformation readerInformation, int i) {
+    @Override
+    public void onReaderInformationReceived(ReaderInformation readerInformation, int i) {
 
-	}
+    }
 }
