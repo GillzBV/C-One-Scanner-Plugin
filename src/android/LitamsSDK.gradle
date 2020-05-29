@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
     implementation files('libs/cw-deviceapi20180628.jar')
+    implementation files('libs/serialport.jar')
     implementation 'fr.coppernic.sdk.agrident:CpcAgrident:2.0.1'
     implementation 'fr.coppernic.sdk.core:CpcCore:1.6.2'
     implementation 'com.jaredrummler:android-device-names:1.1.9'

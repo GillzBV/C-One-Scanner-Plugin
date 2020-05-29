@@ -1,4 +1,4 @@
-function litamsSDK() {
+function LitamsSDK() {
     this.playSound = function (successCallback, scanStatus, vibrate) {
         if (scanStatus == null)
             scanStatus = 1;
@@ -95,4 +95,4 @@ function litamsSDK() {
     };
 }
 
-window.litamsSDK = new litamsSDK();
+window.litamsSDK = new LitamsSDK();

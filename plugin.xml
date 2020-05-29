@@ -39,32 +39,38 @@
         <source-file src="src/android/com/android/lflibs/DeviceControl.java" target-dir="src/com/android/lflibs/"/>
         <source-file src="src/android/com/android/lflibs/serial_native.java" target-dir="src/com/android/lflibs/"/>
         <lib-file src="libs/cw-deviceapi20180628.jar"/>
-        <resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
-        <resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
-        <resource-file src="libs/armeabi/libbarcodereader44.so" target="libs/armeabi/libbarcodereader44.so"/>
-        <resource-file src="libs/armeabi/libDeviceAPI.so" target="libs/armeabi/libDeviceAPI.so"/>
-        <resource-file src="libs/armeabi/libHHPScanInterface.so" target="libs/armeabi/libHHPScanInterface.so"/>
-        <resource-file src="libs/armeabi/libHSMDecoderAPI.so" target="libs/armeabi/libHSMDecoderAPI.so"/>
-        <resource-file src="libs/armeabi/libHsmKil.so" target="libs/armeabi/libHsmKil.so"/>
-        <resource-file src="libs/armeabi/libIAL.so" target="libs/armeabi/libIAL.so"/>
-        <resource-file src="libs/armeabi/libIGLBarDecoder.so" target="libs/armeabi/libIGLBarDecoder.so"/>
-        <resource-file src="libs/armeabi/libIGLImageAE.so" target="libs/armeabi/libIGLImageAE.so"/>
-        <resource-file src="libs/armeabi/liblfrfid.so" target="libs/armeabi/liblfrfid.so"/>
-        <resource-file src="libs/armeabi/libpackage.so" target="libs/armeabi/libpackage.so"/>
-        <resource-file src="libs/armeabi/libSDL.so" target="libs/armeabi/libSDL.so"/>
-        <resource-file src="libs/armeabi-v7a/libbarcodereader.so" target="libs/armeabi-v7a/libbarcodereader.so"/>
-        <resource-file src="libs/armeabi-v7a/libbarcodereader43.so" target="libs/armeabi-v7a/libbarcodereader43.so"/>
-        <resource-file src="libs/armeabi-v7a/libbarcodereader44.so" target="libs/armeabi-v7a/libbarcodereader44.so"/>
-        <resource-file src="libs/armeabi-v7a/libDeviceAPI.so" target="libs/armeabi-v7a/libDeviceAPI.so"/>
-        <resource-file src="libs/armeabi-v7a/libHHPScanInterface.so" target="libs/armeabi-v7a/libHHPScanInterface.so"/>
-        <resource-file src="libs/armeabi-v7a/libHSMDecoderAPI.so" target="libs/armeabi-v7a/libHSMDecoderAPI.so"/>
-        <resource-file src="libs/armeabi-v7a/libHsmKil.so" target="libs/armeabi-v7a/libHsmKil.so"/>
-        <resource-file src="libs/armeabi-v7a/libIAL.so" target="libs/armeabi-v7a/libIAL.so"/>
-        <resource-file src="libs/armeabi-v7a/libIGLBarDecoder.so" target="libs/armeabi-v7a/libIGLBarDecoder.so"/>
-        <resource-file src="libs/armeabi-v7a/libIGLImageAE.so" target="libs/armeabi-v7a/libIGLImageAE.so"/>
-        <resource-file src="libs/armeabi-v7a/liblfrfid.so" target="libs/armeabi-v7a/liblfrfid.so"/>
-        <resource-file src="libs/armeabi-v7a/libpackage.so" target="libs/armeabi-v7a/libpackage.so"/>
-        <resource-file src="libs/armeabi-v7a/libSDL.so" target="libs/armeabi-v7a/libSDL.so"/>
+        <lib-file src="libs/serialport.jar"/>
+        <resource-file src="libs/arm64-v8a/libserial_port.so" target="jniLibs/arm64-v8a/libserial_port.so"/>
+        <resource-file src="libs/armeabi/libbarcodereader.so" target="jniLibs/armeabi/libbarcodereader.so"/>
+        <resource-file src="libs/armeabi/libbarcodereader43.so" target="jniLibs/armeabi/libbarcodereader43.so"/>
+        <resource-file src="libs/armeabi/libbarcodereader44.so" target="jniLibs/armeabi/libbarcodereader44.so"/>
+        <resource-file src="libs/armeabi/libDeviceAPI.so" target="jniLibs/armeabi/libDeviceAPI.so"/>
+        <resource-file src="libs/armeabi/libHHPScanInterface.so" target="jniLibs/armeabi/libHHPScanInterface.so"/>
+        <resource-file src="libs/armeabi/libHSMDecoderAPI.so" target="jniLibs/armeabi/libHSMDecoderAPI.so"/>
+        <resource-file src="libs/armeabi/libHsmKil.so" target="jniLibs/armeabi/libHsmKil.so"/>
+        <resource-file src="libs/armeabi/libIAL.so" target="jniLibs/armeabi/libIAL.so"/>
+        <resource-file src="libs/armeabi/libIGLBarDecoder.so" target="jniLibs/armeabi/libIGLBarDecoder.so"/>
+        <resource-file src="libs/armeabi/libIGLImageAE.so" target="jniLibs/armeabi/libIGLImageAE.so"/>
+        <resource-file src="libs/armeabi/liblfrfid.so" target="jniLibs/armeabi/liblfrfid.so"/>
+        <resource-file src="libs/armeabi/libpackage.so" target="jniLibs/armeabi/libpackage.so"/>
+        <resource-file src="libs/armeabi/libSDL.so" target="jniLibs/armeabi/libSDL.so"/>
+        <resource-file src="libs/armeabi/libserial_port.so" target="jniLibs/armeabi/libserial_port.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader.so" target="jniLibs/armeabi-v7a/libbarcodereader.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader43.so" target="jniLibs/armeabi-v7a/libbarcodereader43.so"/>
+        <resource-file src="libs/armeabi-v7a/libbarcodereader44.so" target="jniLibs/armeabi-v7a/libbarcodereader44.so"/>
+        <resource-file src="libs/armeabi-v7a/libDeviceAPI.so" target="jniLibs/armeabi-v7a/libDeviceAPI.so"/>
+        <resource-file src="libs/armeabi-v7a/libHHPScanInterface.so" target="jniLibs/armeabi-v7a/libHHPScanInterface.so"/>
+        <resource-file src="libs/armeabi-v7a/libHSMDecoderAPI.so" target="jniLibs/armeabi-v7a/libHSMDecoderAPI.so"/>
+        <resource-file src="libs/armeabi-v7a/libHsmKil.so" target="jniLibs/armeabi-v7a/libHsmKil.so"/>
+        <resource-file src="libs/armeabi-v7a/libIAL.so" target="jniLibs/armeabi-v7a/libIAL.so"/>
+        <resource-file src="libs/armeabi-v7a/libIGLBarDecoder.so" target="jniLibs/armeabi-v7a/libIGLBarDecoder.so"/>
+        <resource-file src="libs/armeabi-v7a/libIGLImageAE.so" target="jniLibs/armeabi-v7a/libIGLImageAE.so"/>
+        <resource-file src="libs/armeabi-v7a/liblfrfid.so" target="jniLibs/armeabi-v7a/liblfrfid.so"/>
+        <resource-file src="libs/armeabi-v7a/libpackage.so" target="jniLibs/armeabi-v7a/libpackage.so"/>
+        <resource-file src="libs/armeabi-v7a/libSDL.so" target="jniLibs/armeabi-v7a/libSDL.so"/>
+        <resource-file src="libs/armeabi-v7a/libserial_port.so" target="jniLibs/armeabi-v7a/libserial_port.so"/>
+        <resource-file src="libs/x86/libserial_port.so" target="jniLibs/x86/libserial_port.so"/>
+        <resource-file src="libs/x86_64/libserial_port.so" target="jniLibs/x86_64/libserial_port.so"/>
         <resource-file src="res/raw/success.wav" target="res/raw/success.wav"/>
         <resource-file src="res/raw/fail.wav" target="res/raw/fail.wav"/>
         <resource-file src="res/raw/error.wav" target="res/raw/error.wav"/>
