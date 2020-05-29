@@ -8,7 +8,7 @@
         <clobbers target="cordova.plugins.LitamsSDK"/>
     </js-module>
     <engines>
-        <engine name="cordova" version=">=3.6.0"/>
+        <engine name="cordova" version=">=9.0.0"/>
     </engines>
     <platform name="android">
         <framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
@@ -38,7 +38,7 @@
         <source-file src="src/android/nl/gillz/helpers/Vibration.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/com/android/lflibs/DeviceControl.java" target-dir="src/com/android/lflibs/"/>
         <source-file src="src/android/com/android/lflibs/serial_native.java" target-dir="src/com/android/lflibs/"/>
-        <resource-file src="libs/cw-deviceapi20180628.jar" target="libs/cw-deviceapi20180628.jar"/>
+        <lib-file src="libs/cw-deviceapi20180628.jar"/>
         <resource-file src="libs/armeabi/libbarcodereader.so" target="libs/armeabi/libbarcodereader.so"/>
         <resource-file src="libs/armeabi/libbarcodereader43.so" target="libs/armeabi/libbarcodereader43.so"/>
         <resource-file src="libs/armeabi/libbarcodereader44.so" target="libs/armeabi/libbarcodereader44.so"/>

@@ -7,11 +7,11 @@ repositories {
 }
 
 dependencies {
-    compile(name: 'cw-deviceapi20180628', ext: 'jar')
-    compile 'fr.coppernic.sdk.agrident:CpcAgrident:2.0.1'
-    compile 'fr.coppernic.sdk.core:CpcCore:1.6.2'
-    compile 'com.jaredrummler:android-device-names:1.1.7'
-    compile 'me.aflak.libraries:bluetooth:1.3.4'
+    implementation files('libs/cw-deviceapi20180628.jar')
+    implementation 'fr.coppernic.sdk.agrident:CpcAgrident:2.0.1'
+    implementation 'fr.coppernic.sdk.core:CpcCore:1.6.2'
+    implementation 'com.jaredrummler:android-device-names:1.1.9'
+    implementation 'me.aflak.libraries:bluetooth:1.3.4'
 }
 
 android {
