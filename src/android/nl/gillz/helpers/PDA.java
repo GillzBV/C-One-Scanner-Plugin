@@ -1,29 +1,28 @@
 package nl.gillz.helpers;
 
-import android.content.Context;
 import android.os.CountDownTimer;
 import android_serialport_api.SerialPort;
 import android_serialport_api.SerialPortTool;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 
 public class PDA {
 
     private final ScannerCallback scannerCallback;
-    private final Context context;
 
     private CountDownTimer countdownTimer;
 
     private SerialPortTool serialPortTool;
     private SerialPort serialPort;
-    private OutputStream outputStream;
     private InputStream inputStream;
     private ReadThread readThread;
 
-    public PDA(ScannerCallback scannerCallback, Context context) {
+    public PDA(ScannerCallback scannerCallback) {
         this.scannerCallback = scannerCallback;
-        this.context = context;
     }
 
     public void scan(Integer duration) {
@@ -66,7 +65,6 @@ public class PDA {
 
         try {
             serialPort = serialPortTool.getSerialPort("/dev/ttyS3", 9600);
-            outputStream = serialPort.getOutputStream();
             inputStream = serialPort.getInputStream();
 
             if (readThread == null) {
@@ -85,70 +83,82 @@ public class PDA {
             readThread.interrupt();
             readThread = null;
         }
+
         if (serialPortTool != null) {
             serialPortTool.closeSerialPort();
         }
+
         serialPort = null;
     }
 
-    private void onDataReceived(final byte[] buffer, final int size) {
-        if (size > 0) {
-            byte[] id = new byte[size];
+    private void onDataSuccess(final byte[] buffer, final int size) {
+        String result = "";
 
-            System.arraycopy(buffer, 0, id, 0, size);
-            String hex = bytesToHexString(id);
-            String ASCIItoHex = convertHexToString(hex);
-            String temp = rev(ASCIItoHex.substring(1, 11));
-            String result = new BigInteger(temp, 16).toString(10);
+        byte[] id = new byte[size];
+        System.arraycopy(buffer, 0, id, 0, size);
+        String value = convertHexToString(bytesToHexString(id));
 
-            close();
-            power("0");
-            countdownTimer.cancel();
-            scannerCallback.success(result);
-        }
-    }
-
-    public String bytesToHexString(byte[] bArr) {
-        StringBuffer sb = new StringBuffer(bArr.length);
-        String sTmp;
-
-        for (int i = 0; i < bArr.length; i++) {
-            sTmp = Integer.toHexString(0xFF & bArr[i]);
-            if (sTmp.length() < 2)
-                sb.append(0);
-            sb.append(sTmp.toUpperCase());
+        if (value.length() > 13) {
+            result += new BigInteger(revert(value.substring(11, 14)), 16);
+        } else {
+            result += "000";
         }
 
-        return sb.toString();
+        if (value.length() > 10) {
+            result += new BigInteger(revert(value.substring(1, 11)), 16);
+        } else {
+            result += "000000000000";
+        }
+
+        close();
+        power("0");
+        countdownTimer.cancel();
+        scannerCallback.success(result);
     }
 
-    static String rev(String ox) {
-        byte[] b = ox.getBytes();
-        byte[] result = new byte[b.length];
-        for (int i = b.length - 1, j = 0; i >= 0; i--, j++)
-            result[j] = b[i];
-        return new String(result);
+    private void onDataError() {
+        close();
+        power("0");
+        countdownTimer.cancel();
+        scannerCallback.error("Read data error");
     }
 
-    public String convertHexToString(String hex) {
+    private String bytesToHexString(byte[] bytes) {
+        StringBuilder stringBuffer = new StringBuilder(bytes.length);
+        String tempString;
 
-        StringBuilder sb = new StringBuilder();
-        StringBuilder temp = new StringBuilder();
+        for (byte byteValue : bytes) {
+            tempString = Integer.toHexString(0xFF & byteValue);
 
-        //49204c6f7665204a617661 split into two characters 49, 20, 4c...
+            if (tempString.length() < 2) {
+                stringBuffer.append(0);
+            }
+
+            stringBuffer.append(tempString.toUpperCase());
+        }
+
+        return stringBuffer.toString();
+    }
+
+    private String convertHexToString(String hex) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         for (int i = 0; i < hex.length() - 1; i += 2) {
-
-            //grab the hex in pairs
-            String output = hex.substring(i, (i + 2));
-            //convert hex to decimal
-            int decimal = Integer.parseInt(output, 16);
-            //convert the decimal to character
-            sb.append((char) decimal);
-
-            temp.append(decimal);
+            stringBuilder.append((char) Integer.parseInt(hex.substring(i, (i + 2)), 16));
         }
 
-        return sb.toString();
+        return stringBuilder.toString();
+    }
+
+    private String revert(String input) {
+        byte[] bytes = input.getBytes();
+        byte[] output = new byte[bytes.length];
+
+        for (int i = bytes.length - 1, j = 0; i >= 0; i--, j++) {
+            output[j] = bytes[i];
+        }
+
+        return new String(output);
     }
 
     private class ReadThread extends Thread {
@@ -158,18 +168,21 @@ public class PDA {
             super.run();
 
             while (!isInterrupted()) {
-                int size;
                 try {
                     byte[] buffer = new byte[64];
+                    int size = inputStream.read(buffer);
+
                     if (inputStream == null) {
                         return;
                     }
-                    size = inputStream.read(buffer);
+
                     if (size > 0) {
-                        onDataReceived(buffer, size);
+                        onDataSuccess(buffer, size);
+                    } else {
+                        onDataError();
                     }
                 } catch (IOException e) {
-                    return;
+                    onDataError();
                 }
             }
         }

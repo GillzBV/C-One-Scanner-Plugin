@@ -162,13 +162,13 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
         }
 
         if (deviceName.equals("C4000") && c4000 == null) {
-            c4000 = new C4000(this, context);
+            c4000 = new C4000(this);
         } else if (deviceName.equals("C-One") && cOne == null) {
             cOne = new COne(this, context);
         } else if (deviceName.equals("KT50_B2") && kt50B2 == null) {
-            kt50B2 = new KT50B2(this, context);
+            kt50B2 = new KT50B2(this);
         } else if (deviceName.equals("PDA") && pda == null) {
-            pda = new PDA(this, context);
+            pda = new PDA(this);
         }
 
         executeScan();

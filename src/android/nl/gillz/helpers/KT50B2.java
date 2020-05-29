@@ -1,6 +1,5 @@
 package nl.gillz.helpers;
 
-import android.content.Context;
 import android.os.CountDownTimer;
 import com.android.lflibs.DeviceControl;
 import com.android.lflibs.serial_native;
@@ -8,16 +7,14 @@ import com.android.lflibs.serial_native;
 public class KT50B2 {
 
     private final ScannerCallback scannerCallback;
-    private final Context context;
 
     private CountDownTimer countdownTimer;
 
     private DeviceControl deviceControl;
     private serial_native serialNative;
 
-    public KT50B2(ScannerCallback scannerCallback, Context context) {
+    public KT50B2(ScannerCallback scannerCallback) {
         this.scannerCallback = scannerCallback;
-        this.context = context;
 
         setupSerialNative();
         setupDeviceControl();

@@ -1,6 +1,5 @@
 package nl.gillz.helpers;
 
-import android.content.Context;
 import android.os.CountDownTimer;
 import com.rscja.deviceapi.RFIDWithLF;
 import com.rscja.deviceapi.exception.ConfigurationException;
@@ -8,7 +7,6 @@ import com.rscja.deviceapi.exception.ConfigurationException;
 public class C4000 {
 
     private final ScannerCallback scannerCallback;
-    private final Context context;
 
     private CountDownTimer countdownTimer;
 
@@ -16,9 +14,8 @@ public class C4000 {
 
     private Boolean scanning = false;
 
-    public C4000(ScannerCallback scannerCallback, Context context) {
+    public C4000(ScannerCallback scannerCallback) {
         this.scannerCallback = scannerCallback;
-        this.context = context;
 
         setupRfidWithLF();
     }
