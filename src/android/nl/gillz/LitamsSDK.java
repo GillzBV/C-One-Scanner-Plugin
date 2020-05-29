@@ -17,7 +17,7 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
     private CordovaInterface cordovaInterface;
     private Context context;
-    private Map<String, CallbackContext> callbackContexts = new HashMap<String, CallbackContext>();
+    private final Map<String, CallbackContext> callbackContexts = new HashMap<String, CallbackContext>();
 
     private CountDownTimer countdownTimer;
 
@@ -28,11 +28,12 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
     private C4000 c4000 = null;
     private COne cOne = null;
     private KT50B2 kt50B2 = null;
+    private PDA pda = null;
 
     private Bluetooth bluetooth = null;
 
     private Boolean isScanning = false;
-    private List<String> results = new ArrayList<String>();
+    private final List<String> results = new ArrayList<String>();
     private Integer error = 0;
 
     private Boolean multiScan = false;
@@ -136,10 +137,14 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
             cordovaInterface.requestPermission(this, 3, Manifest.permission.BLUETOOTH);
         } else if (!cordovaInterface.hasPermission(Manifest.permission.BLUETOOTH_ADMIN)) {
             cordovaInterface.requestPermission(this, 4, Manifest.permission.BLUETOOTH_ADMIN);
+        } else if (!cordovaInterface.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            cordovaInterface.requestPermission(this, 5, Manifest.permission.READ_EXTERNAL_STORAGE);
+        } else if (!cordovaInterface.hasPermission(Manifest.permission.READ_PHONE_STATE)) {
+            cordovaInterface.requestPermission(this, 6, Manifest.permission.READ_PHONE_STATE);
         } else if (!cordovaInterface.hasPermission(Manifest.permission.VIBRATE)) {
-            cordovaInterface.requestPermission(this, 5, Manifest.permission.VIBRATE);
+            cordovaInterface.requestPermission(this, 7, Manifest.permission.VIBRATE);
         } else if (!cordovaInterface.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            cordovaInterface.requestPermission(this, 6, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            cordovaInterface.requestPermission(this, 8, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
 
@@ -162,6 +167,8 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
             cOne = new COne(this, context);
         } else if (deviceName.equals("KT50_B2") && kt50B2 == null) {
             kt50B2 = new KT50B2(this, context);
+        } else if (deviceName.equals("PDA") && pda == null) {
+            pda = new PDA(this, context);
         }
 
         executeScan();
@@ -176,6 +183,9 @@ public class LitamsSDK extends CordovaPlugin implements ScannerCallback, Bluetoo
 
         if (kt50B2 != null)
             kt50B2.scan(duration);
+
+        if (pda != null)
+            pda.scan(duration);
     }
 
     private void startBluetooth() {

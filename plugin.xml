@@ -17,6 +17,8 @@
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
             <uses-permission android:name="android.permission.BLUETOOTH"/>
             <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
             <uses-permission android:name="android.permission.VIBRATE"/>
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
         </config-file>
@@ -32,6 +34,7 @@
         <source-file src="src/android/nl/gillz/helpers/COne.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/nl/gillz/helpers/Device.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/nl/gillz/helpers/KT50B2.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
+        <source-file src="src/android/nl/gillz/helpers/PDA.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/nl/gillz/helpers/ScannerCallback.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/nl/gillz/helpers/ScanStatus.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>
         <source-file src="src/android/nl/gillz/helpers/Sound.java" target-dir="src/nl/gillz/LitamsSDK/helpers"/>

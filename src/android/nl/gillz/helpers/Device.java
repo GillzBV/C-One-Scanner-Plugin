@@ -8,12 +8,13 @@ import java.util.List;
 public class Device {
 
     private static Device device;
-    private List<String> devices = new ArrayList<String>();
+    private final List<String> devices = new ArrayList<String>();
 
     private Device() {
         devices.add("C4000");
         devices.add("C-One");
         devices.add("KT50_B2");
+        devices.add("PDA");
     }
 
     public static Device getInstance() {
