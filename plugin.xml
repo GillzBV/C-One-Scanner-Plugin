@@ -8,7 +8,7 @@
         <clobbers target="cordova.plugins.LitamsSDK"/>
     </js-module>
     <engines>
-        <engine name="cordova" version=">=3.6.0"/>
+        <engine name="cordova" version=">=6.3.0"/>
     </engines>
     <platform name="android">
         <framework src="src/android/LitamsSDK.gradle" custom="true" type="gradleReference"/>
