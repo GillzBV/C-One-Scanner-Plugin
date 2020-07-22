@@ -99,13 +99,25 @@ public class PDA {
         String value = convertHexToString(bytesToHexString(id));
 
         if (value.length() > 13) {
-            result += new BigInteger(revert(value.substring(11, 14)), 16);
+            String bigIntegerValue = (new BigInteger(revert(value.substring(11, 14)), 16)).toString();
+
+            for (int i = 0; i < 3 - bigIntegerValue.length(); i++) {
+                result += "0";
+            }
+
+            result += bigIntegerValue;
         } else {
             result += "000";
         }
 
         if (value.length() > 10) {
-            result += new BigInteger(revert(value.substring(1, 11)), 16);
+            String bigIntegerValue = (new BigInteger(revert(value.substring(1, 11)), 16)).toString();
+
+            for (int i = 0; i < 12 - bigIntegerValue.length(); i++) {
+                result += "0";
+            }
+
+            result += bigIntegerValue;
         } else {
             result += "000000000000";
         }
